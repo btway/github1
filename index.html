@@ -389,9 +389,7 @@
       style="height: 100vh; width: 100vw"
       id="root">
     </div>
-
-
-    <!-- =================================
+     <!-- =================================
          Loading Animation
          ================================= -->
 
@@ -457,7 +455,17 @@
           );
 
 
+        /*
+         * The splash actually lasts 45 seconds.
+         *
+         * The displayed countdown runs from
+         * 60 seconds to 0 seconds during
+         * those 45 real seconds.
+         */
+
         const totalSeconds = 45;
+
+        const displaySeconds = 60;
 
         let elapsed = 0;
 
@@ -476,6 +484,10 @@
             (elapsed / totalSeconds) * 100;
 
 
+          /*
+           * Progress bar.
+           */
+
           progress.style.width =
             percentage + "%";
 
@@ -484,14 +496,26 @@
             Math.floor(percentage) + "%";
 
 
-          const seconds =
-            Math.floor(elapsed);
+          /*
+           * Accelerated countdown.
+           *
+           * 60 displayed seconds
+           * pass during 45 real seconds.
+           */
+
+          const remaining =
+            Math.ceil(
+              displaySeconds -
+              (
+                percentage / 100
+              ) * displaySeconds
+            );
 
 
           time.textContent =
-            seconds +
+            remaining +
             (
-              seconds === 1
+              remaining === 1
                 ? " second"
                 : " seconds"
             );
@@ -515,7 +539,7 @@
 
           percent.textContent = "100%";
 
-          time.textContent = "45 seconds";
+          time.textContent = "0 seconds";
 
 
           /*
@@ -535,6 +559,7 @@
         }, 45000);
 
       }
+
 
     </script>
 
