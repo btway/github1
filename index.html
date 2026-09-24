@@ -10,7 +10,7 @@
       #blackbox-splash {
         position: fixed;
         inset: 0;
-        z-index: 999999;
+        z-index: 2147483647;
 
         width: 100vw;
         height: 100vh;
@@ -23,13 +23,6 @@
         justify-content: center;
 
         font-family: Arial, Helvetica, sans-serif;
-
-        transition: opacity 0.5s ease;
-      }
-
-      #blackbox-splash.hidden {
-        opacity: 0;
-        pointer-events: none;
       }
 
       .bb-logo {
@@ -105,8 +98,6 @@
 
   <body>
 
-    <!-- Black Box, i startup screen -->
-
     <div id="blackbox-splash">
 
       <div class="bb-logo">
@@ -132,46 +123,26 @@
     </div>
 
 
-    <!-- Shiny Live application -->
-
     <div
       style="height: 100vh; width: 100vw"
       id="root">
     </div>
 
 
+    <!-- Temporary test:
+         keep splash visible for 45 seconds -->
+
     <script>
-      /*
-       * Wait for the actual Shiny Live application
-       * to appear inside #root.
-       */
+      setTimeout(function () {
 
-      const splash = document.getElementById("blackbox-splash");
-      const root = document.getElementById("root");
+        const splash =
+          document.getElementById("blackbox-splash");
 
-      const observer = new MutationObserver(function () {
-
-        if (root.children.length > 0) {
-
-          observer.disconnect();
-
-          setTimeout(function () {
-            splash.classList.add("hidden");
-
-            setTimeout(function () {
-              splash.remove();
-            }, 500);
-
-          }, 300);
-
+        if (splash) {
+          splash.style.display = "none";
         }
 
-      });
-
-      observer.observe(root, {
-        childList: true,
-        subtree: true
-      });
+      }, 45000);
     </script>
 
   </body>
