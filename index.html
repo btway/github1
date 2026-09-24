@@ -322,7 +322,7 @@
           id="bb-time"
           class="bb-time">
 
-          60 seconds Remaining
+          0 seconds
 
         </div>
 
@@ -457,30 +457,9 @@
           );
 
 
-        /*
-         * The splash lasts 45 real seconds.
-         *
-         * The displayed timer runs:
-         *
-         * 60 seconds Remaining
-         *          ↓
-         * 0 seconds Remaining
-         */
-
         const totalSeconds = 45;
 
-        const displaySeconds = 60;
-
         let elapsed = 0;
-
-
-        /*
-         * Update immediately so the timer
-         * begins at 60 rather than 0.
-         */
-
-        time.textContent =
-          "60 seconds Remaining";
 
 
         const timer = setInterval(function () {
@@ -497,46 +476,24 @@
             (elapsed / totalSeconds) * 100;
 
 
-          /*
-           * Progress bar.
-           */
-
           progress.style.width =
             percentage + "%";
 
-
-          /*
-           * Percentage.
-           */
 
           percent.textContent =
             Math.floor(percentage) + "%";
 
 
-          /*
-           * Countdown.
-           *
-           * 45 real seconds represents
-           * 60 displayed seconds.
-           */
-
-          const remaining =
-            Math.ceil(
-              displaySeconds -
-              (
-                elapsed /
-                totalSeconds
-              ) *
-              displaySeconds
-            );
+          const seconds =
+            Math.floor(elapsed);
 
 
           time.textContent =
-            remaining +
+            seconds +
             (
-              remaining === 1
-                ? " second Remaining"
-                : " seconds Remaining"
+              seconds === 1
+                ? " second"
+                : " seconds"
             );
 
 
@@ -558,8 +515,7 @@
 
           percent.textContent = "100%";
 
-          time.textContent =
-            "0 seconds Remaining";
+          time.textContent = "45 seconds";
 
 
           /*
