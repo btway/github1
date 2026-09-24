@@ -3,87 +3,25 @@
   const splash =
     document.getElementById("blackbox-splash");
 
-  const progress =
-    document.getElementById("bb-progress");
-
-  const percent =
-    document.getElementById("bb-percent");
-
-  const time =
-    document.getElementById("bb-time");
-
-  const startTime = Date.now();
-
-  let finished = false;
+  const root =
+    document.getElementById("root");
 
 
-  /* --------------------------------
-     Estimated progress animation
-     -------------------------------- */
-
-  const progressTimer = setInterval(function () {
-
-    if (finished) {
-      clearInterval(progressTimer);
-      return;
-    }
-
-    const elapsed =
-      (Date.now() - startTime) / 1000;
+  function checkAppReady() {
 
     /*
-     * Slowly approach 90%.
-     * We deliberately never claim 100%
-     * until the application is actually ready.
+     * Ignore the initial WebR/Shiny bootstrap elements.
+     *
+     * We wait until an actual Shiny output
+     * has appeared.
      */
 
-    const estimated =
-      Math.min(
-        90,
-        (elapsed / 45) * 90
+    const shinyOutput =
+      root.querySelector(
+        ".shiny-bound-output"
       );
 
-    progress.style.width =
-      estimated + "%";
-
-    percent.textContent =
-      Math.floor(estimated) + "%";
-
-    const seconds =
-      Math.floor(elapsed);
-
-    time.textContent =
-      seconds +
-      (seconds === 1 ? " second" : " seconds");
-
-  }, 333);
-
-
-  /* --------------------------------
-     Finish loading
-     -------------------------------- */
-
-  function finishLoading() {
-
-    if (finished) return;
-
-    finished = true;
-
-    clearInterval(progressTimer);
-
-    progress.style.width = "100%";
-    percent.textContent = "100%";
-
-    const elapsed =
-      Math.floor(
-        (Date.now() - startTime) / 1000
-      );
-
-    time.textContent =
-      elapsed +
-      (elapsed === 1 ? " second" : " seconds");
-
-    setTimeout(function () {
+    if (shinyOutput) {
 
       splash.style.opacity = "0";
 
@@ -91,35 +29,41 @@
         splash.remove();
       }, 500);
 
-    }, 200);
-
+      observer.disconnect();
+    }
   }
 
 
-  /* --------------------------------
-     Shiny connection
-     -------------------------------- */
+  const observer =
+    new MutationObserver(function () {
 
-  document.addEventListener(
-    "shiny:connected",
-    function () {
-      finishLoading();
-    }
-  );
+      checkAppReady();
+
+    });
 
 
-  /* --------------------------------
-     Safety fallback
-     -------------------------------- */
+  observer.observe(root, {
+    childList: true,
+    subtree: true
+  });
 
-  setTimeout(function () {
 
-    if (!finished) {
+  /*
+   * Also check periodically in case the
+   * output already exists before the observer
+   * starts watching.
+   */
 
-      finishLoading();
+  const readinessCheck =
+    setInterval(function () {
 
-    }
+      if (!document.body.contains(splash)) {
+        clearInterval(readinessCheck);
+        return;
+      }
 
-  }, 90000);
+      checkAppReady();
+
+    }, 500);
 
 </script>
