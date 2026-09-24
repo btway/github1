@@ -7,10 +7,6 @@
     <title>Black Box,i</title>
 
     <style>
-      /* --------------------------------
-         Black Box, i splash screen
-         -------------------------------- */
-
       #blackbox-splash {
         position: fixed;
         inset: 0;
@@ -68,6 +64,18 @@
         opacity: 0.5;
       }
 
+      .bb-notice {
+        margin-top: 28px;
+        max-width: 320px;
+
+        text-align: center;
+
+        font-size: 12px;
+        line-height: 1.6;
+
+        opacity: 0.45;
+      }
+
       @keyframes bb-spin {
         to {
           transform: rotate(360deg);
@@ -115,6 +123,12 @@
         Loading...
       </div>
 
+      <div class="bb-notice">
+        Load time may take up to 30 seconds.<br>
+        For enhanced performance, we encourage all users
+        to download the desktop version.
+      </div>
+
     </div>
 
 
@@ -127,29 +141,37 @@
 
 
     <script>
-
       /*
-       * Hide the Black Box, i splash screen
-       * when Shiny establishes its connection.
+       * Wait for the actual Shiny Live application
+       * to appear inside #root.
        */
 
-      document.addEventListener("shiny:connected", function () {
+      const splash = document.getElementById("blackbox-splash");
+      const root = document.getElementById("root");
 
-        const splash =
-          document.getElementById("blackbox-splash");
+      const observer = new MutationObserver(function () {
 
-        if (splash) {
+        if (root.children.length > 0) {
 
-          splash.classList.add("hidden");
+          observer.disconnect();
 
           setTimeout(function () {
-            splash.remove();
-          }, 500);
+            splash.classList.add("hidden");
+
+            setTimeout(function () {
+              splash.remove();
+            }, 500);
+
+          }, 300);
 
         }
 
       });
 
+      observer.observe(root, {
+        childList: true,
+        subtree: true
+      });
     </script>
 
   </body>
