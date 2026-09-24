@@ -33,7 +33,7 @@
 
       .bb-tagline {
         margin-top: 8px;
-        font-size: 16px;
+        font-size: 17px;
         opacity: 0.6;
       }
 
@@ -52,21 +52,60 @@
       }
 
       .bb-loading {
-        margin-top: 16px;
+        margin-top: 18px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .bb-progress-container {
+        width: 300px;
+        max-width: 70vw;
+
+        margin-top: 14px;
+      }
+
+      .bb-progress-bar {
+        width: 100%;
+        height: 6px;
+
+        background: #e5e5e5;
+
+        border-radius: 10px;
+
+        overflow: hidden;
+      }
+
+      .bb-progress {
+        width: 0%;
+        height: 100%;
+
+        background: #222222;
+
+        border-radius: 10px;
+
+        transition: width 0.3s linear;
+      }
+
+      .bb-time {
+        margin-top: 9px;
+
         font-size: 13px;
         opacity: 0.5;
+
+        text-align: center;
       }
 
       .bb-notice {
-        margin-top: 28px;
-        max-width: 320px;
+        margin-top: 34px;
+
+        max-width: 520px;
 
         text-align: center;
 
-        font-size: 12px;
+        font-size: 17px;
         line-height: 1.6;
 
-        opacity: 0.45;
+        opacity: 0.55;
       }
 
       @keyframes bb-spin {
@@ -98,6 +137,8 @@
 
   <body>
 
+    <!-- Black Box, i startup screen -->
+
     <div id="blackbox-splash">
 
       <div class="bb-logo">
@@ -111,11 +152,28 @@
       <div class="bb-spinner"></div>
 
       <div class="bb-loading">
-        Loading...
+        Loading... <span id="bb-percent">0%</span>
+      </div>
+
+      <div class="bb-progress-container">
+
+        <div class="bb-progress-bar">
+          <div
+            id="bb-progress"
+            class="bb-progress">
+          </div>
+        </div>
+
+        <div
+          id="bb-time"
+          class="bb-time">
+          0 seconds
+        </div>
+
       </div>
 
       <div class="bb-notice">
-        Load time may take up to 30 seconds.<br>
+        Load time may take up to 60 seconds or longer.<br>
         For enhanced performance, we encourage all users
         to download the desktop version.
       </div>
@@ -123,26 +181,84 @@
     </div>
 
 
+    <!-- Shiny Live application -->
+
     <div
       style="height: 100vh; width: 100vw"
       id="root">
     </div>
 
 
-    <!-- Temporary test:
-         keep splash visible for 45 seconds -->
+    <!-- 60-second estimated loading indicator -->
 
     <script>
-      setTimeout(function () {
 
-        const splash =
-          document.getElementById("blackbox-splash");
+      const splash =
+        document.getElementById("blackbox-splash");
 
-        if (splash) {
-          splash.style.display = "none";
+      const progress =
+        document.getElementById("bb-progress");
+
+      const percent =
+        document.getElementById("bb-percent");
+
+      const time =
+        document.getElementById("bb-time");
+
+      const totalSeconds = 60;
+
+      let elapsed = 0;
+
+      const timer = setInterval(function () {
+
+        elapsed += 0.333;
+
+        if (elapsed > totalSeconds) {
+          elapsed = totalSeconds;
         }
 
-      }, 45000);
+        const percentage =
+          Math.min(
+            100,
+            (elapsed / totalSeconds) * 100
+          );
+
+        progress.style.width =
+          percentage + "%";
+
+        percent.textContent =
+          Math.floor(percentage) + "%";
+
+        const seconds =
+          Math.floor(elapsed);
+
+        time.textContent =
+          seconds + (seconds === 1 ? " second" : " seconds");
+
+      }, 333);
+
+
+      /*
+       * Keep the splash visible for the full
+       * 60-second estimated startup window.
+       */
+
+      setTimeout(function () {
+
+        clearInterval(timer);
+
+        progress.style.width = "100%";
+        percent.textContent = "100%";
+        time.textContent = "60 seconds";
+
+        setTimeout(function () {
+
+          splash.style.display = "none";
+
+        }, 300);
+
+      }, 60000);
+
     </script>
 
   </body>
