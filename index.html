@@ -286,7 +286,6 @@
 
     <div id="blackbox-splash">
 
-
       <div class="bb-logo">
         Black Box,i
       </div>
@@ -322,7 +321,7 @@
           id="bb-time"
           class="bb-time">
 
-          0 seconds
+          60 seconds
 
         </div>
 
@@ -389,7 +388,9 @@
       style="height: 100vh; width: 100vw"
       id="root">
     </div>
-     <!-- =================================
+
+
+    <!-- =================================
          Loading Animation
          ================================= -->
 
@@ -456,32 +457,55 @@
 
 
         /*
-         * The splash actually lasts 45 seconds.
+         * Actual splash duration:
+         * 45 real seconds.
          *
-         * The displayed countdown runs from
-         * 60 seconds to 0 seconds during
-         * those 45 real seconds.
+         * Displayed countdown:
+         * 60 seconds -> 0 seconds.
          */
 
         const totalSeconds = 45;
-
         const displaySeconds = 60;
 
-        let elapsed = 0;
+
+        /*
+         * Set the countdown immediately.
+         * This prevents the page from ever
+         * visually starting at 0 seconds.
+         */
+
+        time.textContent = "60 seconds";
+
+
+        /*
+         * Use elapsed milliseconds rather than
+         * manually adding 0.333 seconds.
+         *
+         * This keeps the countdown synchronized
+         * with the actual 45-second duration.
+         */
+
+        const startTime = performance.now();
 
 
         const timer = setInterval(function () {
 
-          elapsed += 0.333;
+          const elapsed =
+            performance.now() - startTime;
 
 
-          if (elapsed > totalSeconds) {
-            elapsed = totalSeconds;
-          }
+          const clampedElapsed =
+            Math.min(
+              elapsed,
+              totalSeconds * 1000
+            );
 
 
           const percentage =
-            (elapsed / totalSeconds) * 100;
+            (
+              clampedElapsed /
+              (totalSeconds * 1000)
+            ) * 100;
 
 
           /*
@@ -492,23 +516,31 @@
             percentage + "%";
 
 
+          /*
+           * Percentage display.
+           */
+
           percent.textContent =
             Math.floor(percentage) + "%";
 
 
           /*
-           * Accelerated countdown.
+           * Countdown.
            *
-           * 60 displayed seconds
-           * pass during 45 real seconds.
+           * 45 real seconds
+           * =
+           * 60 displayed seconds.
            */
 
           const remaining =
-            Math.ceil(
-              displaySeconds -
-              (
-                percentage / 100
-              ) * displaySeconds
+            Math.max(
+              0,
+              Math.ceil(
+                displaySeconds -
+                (
+                  percentage / 100
+                ) * displaySeconds
+              )
             );
 
 
@@ -521,13 +553,12 @@
             );
 
 
-        }, 333);
+        }, 100);
 
 
         /*
-         * Known-good splash duration.
-         *
-         * WebR continues loading underneath.
+         * End the splash after exactly
+         * 45 real seconds.
          */
 
         setTimeout(function () {
@@ -556,7 +587,7 @@
           }, 500);
 
 
-        }, 45000);
+        }, totalSeconds * 1000);
 
       }
 
