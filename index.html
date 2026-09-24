@@ -153,6 +153,69 @@
         opacity: 0.55;
       }
 
+      /* --------------------------------
+         Mobile message
+         -------------------------------- */
+
+      #blackbox-mobile {
+        display: none;
+
+        position: fixed;
+        inset: 0;
+
+        width: 100vw;
+        height: 100vh;
+
+        background: #ffffff;
+
+        align-items: center;
+        justify-content: center;
+
+        font-family: Arial, Helvetica, sans-serif;
+
+        text-align: center;
+
+        padding: 30px;
+
+        box-sizing: border-box;
+      }
+
+      .bb-mobile-content {
+        max-width: 420px;
+      }
+
+      .bb-mobile-title {
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: -1px;
+      }
+
+      .bb-mobile-tagline {
+        margin-top: 8px;
+
+        font-size: 17px;
+
+        opacity: 0.6;
+      }
+
+      .bb-mobile-message {
+        margin-top: 42px;
+
+        font-size: 18px;
+
+        line-height: 1.6;
+      }
+
+      .bb-mobile-note {
+        margin-top: 22px;
+
+        font-size: 15px;
+
+        line-height: 1.5;
+
+        opacity: 0.55;
+      }
+
     </style>
 
 
@@ -167,15 +230,36 @@
 
     <script type="module">
 
-      import {
-        runExportedApp
-      } from "./shinylive/shinylive.js";
+      /*
+       * Detect phones before starting WebR.
+       *
+       * Desktop:
+       *     Start the normal Black Box,i application.
+       *
+       * Mobile:
+       *     Do NOT start WebR.
+       *     Show the mobile notice instead.
+       */
 
-      runExportedApp({
-        id: "root",
-        appEngine: "r",
-        relPath: "",
-      });
+      const isMobile =
+        window.matchMedia("(max-width: 767px)").matches;
+
+
+      if (!isMobile) {
+
+        const {
+          runExportedApp
+        } = await import(
+          "./shinylive/shinylive.js"
+        );
+
+        runExportedApp({
+          id: "root",
+          appEngine: "r",
+          relPath: "",
+        });
+
+      }
 
     </script>
 
@@ -259,6 +343,47 @@
 
 
     <!-- =================================
+         Mobile Message
+         ================================= -->
+
+    <div id="blackbox-mobile">
+
+      <div class="bb-mobile-content">
+
+        <div class="bb-mobile-title">
+          Black Box,i
+        </div>
+
+
+        <div class="bb-mobile-tagline">
+          Simple | Investing
+        </div>
+
+
+        <div class="bb-mobile-message">
+
+          <strong>Built for desktop.</strong><br><br>
+
+          For the best experience, Black Box,i
+          is designed for Windows 11 and macOS
+          desktop computers.
+
+        </div>
+
+
+        <div class="bb-mobile-note">
+
+          Please return on a desktop computer
+          to use the application.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================
          Shiny Live Application
          ================================= -->
 
@@ -274,110 +399,144 @@
 
     <script>
 
-      const splash =
+      /*
+       * Mobile visitors never start WebR.
+       * Show the mobile message and stop here.
+       */
+
+      const isMobile =
+        window.matchMedia("(max-width: 767px)").matches;
+
+
+      if (isMobile) {
+
         document.getElementById(
           "blackbox-splash"
-        );
+        ).style.display = "none";
 
-      const progress =
-        document.getElementById(
-          "bb-progress"
-        );
 
-      const percent =
         document.getElementById(
-          "bb-percent"
-        );
+          "blackbox-mobile"
+        ).style.display = "flex";
 
-      const time =
+
         document.getElementById(
-          "bb-time"
-        );
+          "root"
+        ).style.display = "none";
+
+      }
 
 
       /*
+       * Desktop loading animation.
+       *
        * The actual WebR/Shiny application
        * continues loading normally underneath.
        *
        * This is only a visual loading indicator.
        */
 
-      const totalSeconds = 45;
+      if (!isMobile) {
 
-      let elapsed = 0;
+        const splash =
+          document.getElementById(
+            "blackbox-splash"
+          );
 
+        const progress =
+          document.getElementById(
+            "bb-progress"
+          );
 
-      const timer = setInterval(function () {
+        const percent =
+          document.getElementById(
+            "bb-percent"
+          );
 
-        elapsed += 0.333;
-
-
-        if (elapsed > totalSeconds) {
-          elapsed = totalSeconds;
-        }
-
-
-        const percentage =
-          (elapsed / totalSeconds) * 100;
-
-
-        progress.style.width =
-          percentage + "%";
-
-
-        percent.textContent =
-          Math.floor(percentage) + "%";
-
-
-        const seconds =
-          Math.floor(elapsed);
-
-
-        time.textContent =
-          seconds +
-          (
-            seconds === 1
-              ? " second"
-              : " seconds"
+        const time =
+          document.getElementById(
+            "bb-time"
           );
 
 
-      }, 333);
+        const totalSeconds = 45;
+
+        let elapsed = 0;
 
 
-      /*
-       * Known-good splash duration.
-       *
-       * WebR continues loading underneath.
-       */
+        const timer = setInterval(function () {
 
-      setTimeout(function () {
-
-        clearInterval(timer);
+          elapsed += 0.333;
 
 
-        progress.style.width = "100%";
+          if (elapsed > totalSeconds) {
+            elapsed = totalSeconds;
+          }
 
-        percent.textContent = "100%";
 
-        time.textContent = "45 seconds";
+          const percentage =
+            (elapsed / totalSeconds) * 100;
+
+
+          progress.style.width =
+            percentage + "%";
+
+
+          percent.textContent =
+            Math.floor(percentage) + "%";
+
+
+          const seconds =
+            Math.floor(elapsed);
+
+
+          time.textContent =
+            seconds +
+            (
+              seconds === 1
+                ? " second"
+                : " seconds"
+            );
+
+
+        }, 333);
 
 
         /*
-         * Fade out the splash.
+         * Known-good splash duration.
+         *
+         * WebR continues loading underneath.
          */
-
-        splash.style.opacity = "0";
-
 
         setTimeout(function () {
 
-          splash.remove();
-
-        }, 500);
+          clearInterval(timer);
 
 
-      }, 45000);
+          progress.style.width = "100%";
+
+          percent.textContent = "100%";
+
+          time.textContent = "45 seconds";
+
+
+          /*
+           * Fade out the splash.
+           */
+
+          splash.style.opacity = "0";
+
+
+          setTimeout(function () {
+
+            splash.remove();
+
+          }, 500);
+
+
+        }, 45000);
+
+      }
 
     </script>
 
