@@ -286,22 +286,30 @@
 
 
       /* --------------------------------
-         Safari ECharts diagnostic test
+         TEMPORARY SAFARI DIAGNOSTIC
          -------------------------------- */
 
       /*
-       * Temporarily prevent the ECharts
-       * canvas from receiving pointer events.
+       * Show the boundaries of every element
+       * inside the Shiny/WebR application.
        *
-       * This is a diagnostic test.
-       *
-       * If Safari scrolling now works over
-       * the chart, we have confirmed that
-       * the canvas is capturing the interaction.
+       * This does NOT change scrolling.
+       * It is only intended to show us what
+       * occupies the mysterious right-side area.
        */
 
-      canvas {
-        pointer-events: none !important;
+      #root * {
+        outline: 1px solid rgba(255, 0, 0, 0.18);
+      }
+
+
+      /*
+       * Highlight elements that are wider than
+       * the viewport.
+       */
+
+      #root * {
+        box-sizing: border-box;
       }
 
     </style>
@@ -524,11 +532,6 @@
 
       /*
        * Desktop loading animation.
-       *
-       * The actual WebR/Shiny application
-       * continues loading normally underneath.
-       *
-       * This is only a visual loading indicator.
        */
 
       if (!isMobile) {
@@ -603,11 +606,6 @@
             );
 
 
-          /*
-           * Once the 30-second estimate has
-           * been reached, change the message.
-           */
-
           if (elapsed >= totalSeconds) {
 
             notice.textContent =
@@ -621,8 +619,6 @@
 
         /*
          * Known-good splash duration.
-         *
-         * WebR continues loading underneath.
          */
 
         setTimeout(function () {
@@ -636,10 +632,6 @@
 
           time.textContent = "30 seconds";
 
-
-          /*
-           * Fade out the splash.
-           */
 
           splash.style.opacity = "0";
 
