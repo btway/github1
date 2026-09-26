@@ -4,7 +4,10 @@
   <head>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
 
     <title>Black Box,i</title>
 
@@ -18,8 +21,10 @@
       body {
         margin: 0;
         padding: 0;
+
         width: 100%;
         height: 100%;
+
         overflow: hidden;
       }
 
@@ -31,19 +36,22 @@
       #blackbox-splash {
         position: fixed;
         inset: 0;
+
         z-index: 2147483647;
 
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
 
         background: #ffffff;
 
         display: flex;
         flex-direction: column;
+
         align-items: center;
         justify-content: flex-start;
 
         padding-top: 60px;
+
         box-sizing: border-box;
 
         font-family: Arial, Helvetica, sans-serif;
@@ -96,9 +104,11 @@
 
 
       @keyframes bb-spin {
+
         to {
           transform: rotate(360deg);
         }
+
       }
 
 
@@ -194,8 +204,8 @@
         position: fixed;
         inset: 0;
 
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
 
         background: #ffffff;
 
@@ -252,6 +262,28 @@
         opacity: 0.55;
       }
 
+
+      /* --------------------------------
+         Shiny Live application viewport
+         -------------------------------- */
+
+      #root {
+        position: fixed;
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        width: auto;
+        height: auto;
+
+        margin: 0;
+        padding: 0;
+
+        overflow: hidden;
+      }
+
     </style>
 
 
@@ -289,6 +321,7 @@
         } = await import(
           "./shinylive/shinylive.js"
         );
+
 
         runExportedApp({
           id: "root",
@@ -338,8 +371,13 @@
 
 
       <div class="bb-loading">
+
         Loading...
-        <span id="bb-percent">0%</span>
+
+        <span id="bb-percent">
+          0%
+        </span>
+
       </div>
 
 
@@ -384,7 +422,9 @@
 
     <div id="blackbox-mobile">
 
+
       <div class="bb-mobile-content">
+
 
         <div class="bb-mobile-title">
           Black Box,i
@@ -398,10 +438,12 @@
 
         <div class="bb-mobile-message">
 
-          <strong>Built for desktop.</strong><br><br>
+          <strong>Built for desktop.</strong>
 
-          Black Box,i is designed for Windows 11 and macOS
-          desktop computers.
+          <br><br>
+
+          Black Box,i is designed for Windows 11
+          and macOS desktop computers.
 
         </div>
 
@@ -412,7 +454,9 @@
 
         </div>
 
+
       </div>
+
 
     </div>
 
@@ -421,10 +465,7 @@
          Shiny Live Application
          ================================= -->
 
-    <div
-      style="height: 100%; width: 100%;"
-      id="root">
-    </div>
+    <div id="root"></div>
 
 
     <!-- =================================
@@ -545,9 +586,6 @@
           /*
            * Once the 30-second estimate has
            * been reached, change the message.
-           *
-           * The progress bar is already at 100%.
-           * WebR continues loading underneath.
            */
 
           if (elapsed >= totalSeconds) {
@@ -600,16 +638,27 @@
 
 
     <!-- =================================
-         Safari / ECharts scrolling test
+         Safari / ECharts scrolling protection
          ================================= -->
 
     <script>
 
       /*
-       * Allow vertical wheel scrolling to continue
-       * while the pointer is over an ECharts canvas.
+       * IMPORTANT:
        *
-       * This does NOT modify the ECharts tooltip.
+       * The listener is installed during the
+       * CAPTURE phase.
+       *
+       * This means Safari sees the wheel event
+       * before it reaches an ECharts canvas.
+       *
+       * We stop propagation so ECharts cannot
+       * consume the wheel event.
+       *
+       * We do NOT call preventDefault().
+       *
+       * Therefore the browser's normal scrolling
+       * behavior remains available.
        */
 
       document.addEventListener(
@@ -617,6 +666,7 @@
         function (event) {
 
           const target = event.target;
+
 
           if (
             target &&
@@ -629,6 +679,7 @@
 
         },
         {
+          capture: true,
           passive: true
         }
       );
