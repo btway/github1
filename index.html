@@ -284,6 +284,26 @@
         overflow: hidden;
       }
 
+
+      /* --------------------------------
+         Safari ECharts diagnostic test
+         -------------------------------- */
+
+      /*
+       * Temporarily prevent the ECharts
+       * canvas from receiving pointer events.
+       *
+       * This is a diagnostic test.
+       *
+       * If Safari scrolling now works over
+       * the chart, we have confirmed that
+       * the canvas is capturing the interaction.
+       */
+
+      canvas {
+        pointer-events: none !important;
+      }
+
     </style>
 
 
@@ -633,56 +653,6 @@
         }, 45000);
 
       }
-
-    </script>
-
-
-    <!-- =================================
-         Safari / ECharts scrolling protection
-         ================================= -->
-
-    <script>
-
-      /*
-       * IMPORTANT:
-       *
-       * The listener is installed during the
-       * CAPTURE phase.
-       *
-       * This means Safari sees the wheel event
-       * before it reaches an ECharts canvas.
-       *
-       * We stop propagation so ECharts cannot
-       * consume the wheel event.
-       *
-       * We do NOT call preventDefault().
-       *
-       * Therefore the browser's normal scrolling
-       * behavior remains available.
-       */
-
-      document.addEventListener(
-        "wheel",
-        function (event) {
-
-          const target = event.target;
-
-
-          if (
-            target &&
-            target.tagName === "CANVAS"
-          ) {
-
-            event.stopPropagation();
-
-          }
-
-        },
-        {
-          capture: true,
-          passive: true
-        }
-      );
 
     </script>
 
