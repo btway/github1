@@ -597,17 +597,44 @@
       }
 
     </script>
-<script>
-document.addEventListener(
-  "wheel",
-  function(e) {
-    if (e.target.closest(".echarts4r")) {
-      e.stopPropagation();
-    }
-  },
-  { passive: true }
-);
-</script>
+
+
+    <!-- =================================
+         Safari / ECharts scrolling test
+         ================================= -->
+
+    <script>
+
+      /*
+       * Allow vertical wheel scrolling to continue
+       * while the pointer is over an ECharts canvas.
+       *
+       * This does NOT modify the ECharts tooltip.
+       */
+
+      document.addEventListener(
+        "wheel",
+        function (event) {
+
+          const target = event.target;
+
+          if (
+            target &&
+            target.tagName === "CANVAS"
+          ) {
+
+            event.stopPropagation();
+
+          }
+
+        },
+        {
+          passive: true
+        }
+      );
+
+    </script>
+
 
   </body>
 
