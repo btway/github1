@@ -597,7 +597,17 @@
       }
 
     </script>
-
+<script>
+document.addEventListener(
+  "wheel",
+  function(e) {
+    if (e.target.closest(".echarts4r")) {
+      e.stopPropagation();
+    }
+  },
+  { passive: true }
+);
+</script>
 
   </body>
 
