@@ -14,6 +14,17 @@
 
     <style>
 
+/* --------------------------------
+   Safari ECharts tooltip test
+   Keep tooltip visible but allow
+   mouse events to pass through it.
+   -------------------------------- */
+
+.echarts-tooltip,
+[class*="echarts-tooltip"] {
+    pointer-events: none !important;
+}
+
       /* --------------------------------
          Prevent document-level scrolling
          -------------------------------- */
