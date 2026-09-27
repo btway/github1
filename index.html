@@ -301,11 +301,7 @@
          Safari / ECharts wheel test
          -------------------------------- */
 
-      canvas,
-      [class*="echarts"],
-      [class*="chart"] {
-        touch-action: auto !important;
-      }
+
 
     </style>
 
@@ -642,6 +638,24 @@
       }
 
     </script>
+
+
+<script>
+/*
+ * Safari iframe wheel-event diagnostic.
+ *
+ * We are intentionally NOT handling or cancelling
+ * the event. We are simply registering a mousewheel
+ * listener so Safari knows this document handles
+ * mouse-wheel interaction.
+ */
+
+window.addEventListener(
+  "mousewheel",
+  function () {},
+  { passive: true }
+);
+</script>
 
   </body>
 
