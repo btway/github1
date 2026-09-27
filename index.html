@@ -14,17 +14,6 @@
 
     <style>
 
-/* --------------------------------
-   Safari ECharts tooltip test
-   Keep tooltip visible but allow
-   mouse events to pass through it.
-   -------------------------------- */
-
-.echarts-tooltip,
-[class*="echarts-tooltip"] {
-    pointer-events: none !important;
-}
-
       /* --------------------------------
          Prevent document-level scrolling
          -------------------------------- */
@@ -293,15 +282,33 @@
         margin: 0;
         padding: 0;
 
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        scrollbar-width: none;
       }
 
 
       /* --------------------------------
-         Safari / ECharts wheel test
+         Hide scrollbar in Safari/WebKit
          -------------------------------- */
 
+      #root::-webkit-scrollbar {
+        display: none;
+      }
 
+
+      /* --------------------------------
+         Safari scroll-region diagnostic
+         -------------------------------- */
+
+      #root::after {
+        content: "";
+
+        display: block;
+
+        height: 2px;
+      }
 
     </style>
 
@@ -638,24 +645,6 @@
       }
 
     </script>
-
-
-<script>
-/*
- * Safari iframe wheel-event diagnostic.
- *
- * We are intentionally NOT handling or cancelling
- * the event. We are simply registering a mousewheel
- * listener so Safari knows this document handles
- * mouse-wheel interaction.
- */
-
-window.addEventListener(
-  "mousewheel",
-  function () {},
-  { passive: true }
-);
-</script>
 
   </body>
 
