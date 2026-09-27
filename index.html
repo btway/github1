@@ -4,6 +4,7 @@
   <head>
 
     <meta charset="UTF-8" />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
@@ -286,30 +287,13 @@
 
 
       /* --------------------------------
-         TEMPORARY SAFARI DIAGNOSTIC
+         Safari / ECharts wheel test
          -------------------------------- */
 
-      /*
-       * Show the boundaries of every element
-       * inside the Shiny/WebR application.
-       *
-       * This does NOT change scrolling.
-       * It is only intended to show us what
-       * occupies the mysterious right-side area.
-       */
-
-      #root * {
-        outline: 1px solid rgba(255, 0, 0, 0.18);
-      }
-
-
-      /*
-       * Highlight elements that are wider than
-       * the viewport.
-       */
-
-      #root * {
-        box-sizing: border-box;
+      canvas,
+      [class*="echarts"],
+      [class*="chart"] {
+        touch-action: auto !important;
       }
 
     </style>
@@ -647,22 +631,6 @@
       }
 
     </script>
-<script>
-(function () {
-
-    const originalPreventDefault = Event.prototype.preventDefault;
-
-    Event.prototype.preventDefault = function () {
-
-        if (this.type === "wheel") {
-            return;
-        }
-
-        return originalPreventDefault.call(this);
-    };
-
-})();
-</script>
 
   </body>
 
