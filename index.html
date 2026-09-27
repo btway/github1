@@ -650,46 +650,16 @@
 <script>
 (function () {
 
-    function fixEChartsWheel() {
+    const originalPreventDefault = Event.prototype.preventDefault;
 
-        const canvases = document.querySelectorAll(
-            'canvas'
-        );
+    Event.prototype.preventDefault = function () {
 
-        canvases.forEach(function (canvas) {
+        if (this.type === "wheel") {
+            return;
+        }
 
-            if (canvas.dataset.wheelFixed) {
-                return;
-            }
-
-            canvas.dataset.wheelFixed = "true";
-
-            canvas.addEventListener(
-                "wheel",
-                function (event) {
-                    event.stopPropagation();
-                },
-                {
-                    capture: true,
-                    passive: true
-                }
-            );
-
-            console.log("Black Box,i: ECharts wheel listener attached");
-
-        });
-    }
-
-    fixEChartsWheel();
-
-    const observer = new MutationObserver(function () {
-        fixEChartsWheel();
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
+        return originalPreventDefault.call(this);
+    };
 
 })();
 </script>
