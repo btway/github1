@@ -1,651 +1,695 @@
 <!doctype html>
 
 <html lang="en">
-  <head>
 
-    <meta charset="UTF-8" />
+<head>
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+  <meta charset="UTF-8" />
 
-    <title>Black Box,i</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-    <style>
+  <title>Black Box,i</title>
 
-      /* --------------------------------
-         Prevent document-level scrolling
-         -------------------------------- */
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
+  <style>
 
-        width: 100%;
-        height: 100%;
+    /* --------------------------------
+       Prevent document-level scrolling
+       -------------------------------- */
 
-        overflow: hidden;
+    html,
+    body {
+
+      margin: 0;
+      padding: 0;
+
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+
+    }
+
+
+    /* --------------------------------
+       Black Box,i splash screen
+       -------------------------------- */
+
+    #blackbox-splash {
+
+      position: fixed;
+      inset: 0;
+
+      z-index: 2147483647;
+
+      width: 100%;
+      height: 100%;
+
+      background: #ffffff;
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: flex-start;
+
+      padding-top: 60px;
+
+      box-sizing: border-box;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      transition:
+        opacity 0.5s ease;
+
+    }
+
+
+    /* --------------------------------
+       Logo
+       -------------------------------- */
+
+    .bb-logo {
+
+      font-size: 42px;
+
+      font-weight: 600;
+
+      letter-spacing: -1px;
+
+    }
+
+
+    /* --------------------------------
+       Tagline
+       -------------------------------- */
+
+    .bb-tagline {
+
+      margin-top: 8px;
+
+      font-size: 17px;
+
+      opacity: 0.6;
+
+    }
+
+
+    /* --------------------------------
+       Spinner
+       -------------------------------- */
+
+    .bb-spinner {
+
+      width: 34px;
+      height: 34px;
+
+      margin-top: 38px;
+
+      border: 4px solid #e5e5e5;
+
+      border-top:
+        4px solid #222222;
+
+      border-radius: 50%;
+
+      animation:
+        bb-spin 0.9s linear infinite;
+
+    }
+
+
+    @keyframes bb-spin {
+
+      to {
+
+        transform:
+          rotate(360deg);
+
       }
 
+    }
 
-      /* --------------------------------
-         Black Box, i splash screen
-         -------------------------------- */
 
-      #blackbox-splash {
-        position: fixed;
-        inset: 0;
+    /* --------------------------------
+       Loading text
+       -------------------------------- */
 
-        z-index: 2147483647;
+    .bb-loading {
 
-        width: 100%;
-        height: 100%;
+      margin-top: 18px;
 
-        background: #ffffff;
+      font-size: 16px;
 
-        display: flex;
-        flex-direction: column;
+      font-weight: 500;
 
-        align-items: center;
-        justify-content: flex-start;
+    }
 
-        padding-top: 60px;
 
-        box-sizing: border-box;
+    /* --------------------------------
+       Timer
+       -------------------------------- */
 
-        font-family: Arial, Helvetica, sans-serif;
+    .bb-time {
 
-        transition: opacity 0.5s ease;
-      }
+      margin-top: 10px;
 
+      font-size: 14px;
 
-      /* --------------------------------
-         Logo
-         -------------------------------- */
+      opacity: 0.5;
 
-      .bb-logo {
-        font-size: 42px;
-        font-weight: 600;
-        letter-spacing: -1px;
-      }
+      text-align: center;
 
+    }
 
-      /* --------------------------------
-         Tagline
-         -------------------------------- */
 
-      .bb-tagline {
-        margin-top: 8px;
+    /* --------------------------------
+       Desktop message
+       -------------------------------- */
 
-        font-size: 17px;
+    .bb-notice {
 
-        opacity: 0.6;
-      }
+      margin-top: 34px;
 
+      max-width: 520px;
 
-      /* --------------------------------
-         Spinner
-         -------------------------------- */
+      text-align: center;
 
-      .bb-spinner {
-        width: 34px;
-        height: 34px;
+      font-size: 17px;
 
-        margin-top: 38px;
+      line-height: 1.6;
 
-        border: 4px solid #e5e5e5;
-        border-top: 4px solid #222222;
+      opacity: 0.55;
 
-        border-radius: 50%;
+    }
 
-        animation: bb-spin 0.9s linear infinite;
-      }
 
+    /* --------------------------------
+       Mobile message
+       -------------------------------- */
 
-      @keyframes bb-spin {
+    #blackbox-mobile {
 
-        to {
-          transform: rotate(360deg);
-        }
+      display: none;
 
-      }
+      position: fixed;
+      inset: 0;
 
+      width: 100%;
+      height: 100%;
 
-      /* --------------------------------
-         Loading text
-         -------------------------------- */
+      background: #ffffff;
 
-      .bb-loading {
-        margin-top: 18px;
+      align-items: center;
+      justify-content: center;
 
-        font-size: 16px;
-        font-weight: 500;
-      }
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
+      text-align: center;
 
-      /* --------------------------------
-         Progress bar
-         -------------------------------- */
+      padding: 30px;
 
-      .bb-progress-container {
-        width: 300px;
-        max-width: 70vw;
+      box-sizing: border-box;
 
-        margin-top: 14px;
-      }
+    }
 
 
-      .bb-progress-bar {
-        width: 100%;
-        height: 6px;
+    .bb-mobile-content {
 
-        background: #e5e5e5;
+      max-width: 420px;
 
-        border-radius: 10px;
+    }
 
-        overflow: hidden;
-      }
 
+    .bb-mobile-title {
 
-      .bb-progress {
-        width: 0%;
-        height: 100%;
+      font-size: 36px;
 
-        background: #222222;
+      font-weight: 600;
 
-        border-radius: 10px;
+      letter-spacing: -1px;
 
-        transition: width 0.3s linear;
-      }
+    }
 
 
-      /* --------------------------------
-         Timer
-         -------------------------------- */
+    .bb-mobile-tagline {
 
-      .bb-time {
-        margin-top: 9px;
+      margin-top: 8px;
 
-        font-size: 13px;
+      font-size: 17px;
 
-        opacity: 0.5;
+      opacity: 0.6;
 
-        text-align: center;
-      }
+    }
 
 
-      /* --------------------------------
-         Desktop message
-         -------------------------------- */
+    .bb-mobile-message {
 
-      .bb-notice {
-        margin-top: 34px;
+      margin-top: 42px;
 
-        max-width: 520px;
+      font-size: 18px;
 
-        text-align: center;
+      line-height: 1.6;
 
-        font-size: 17px;
+    }
 
-        line-height: 1.6;
 
-        opacity: 0.55;
-      }
+    .bb-mobile-note {
 
+      margin-top: 22px;
 
-      /* --------------------------------
-         Mobile message
-         -------------------------------- */
+      font-size: 15px;
 
-      #blackbox-mobile {
-        display: none;
+      line-height: 1.5;
 
-        position: fixed;
-        inset: 0;
+      opacity: 0.55;
 
-        width: 100%;
-        height: 100%;
+    }
 
-        background: #ffffff;
 
-        align-items: center;
-        justify-content: center;
+    /* --------------------------------
+       Shiny Live application viewport
+       -------------------------------- */
 
-        font-family: Arial, Helvetica, sans-serif;
+    #root {
 
-        text-align: center;
+      position: fixed;
 
-        padding: 30px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
 
-        box-sizing: border-box;
-      }
+      width: auto;
+      height: auto;
 
+      margin: 0;
+      padding: 0;
 
-      .bb-mobile-content {
-        max-width: 420px;
-      }
+      overflow-y: auto;
+      overflow-x: hidden;
 
+      scrollbar-width: none;
 
-      .bb-mobile-title {
-        font-size: 36px;
-        font-weight: 600;
-        letter-spacing: -1px;
-      }
+    }
 
 
-      .bb-mobile-tagline {
-        margin-top: 8px;
+    /* --------------------------------
+       Hide scrollbar in Safari/WebKit
+       -------------------------------- */
 
-        font-size: 17px;
+    #root::-webkit-scrollbar {
 
-        opacity: 0.6;
-      }
+      display: none;
 
+    }
 
-      .bb-mobile-message {
-        margin-top: 42px;
 
-        font-size: 18px;
+    /* --------------------------------
+       Safari scroll-region diagnostic
+       -------------------------------- */
 
-        line-height: 1.6;
-      }
+    #root::after {
 
+      content: "";
 
-      .bb-mobile-note {
-        margin-top: 22px;
+      display: block;
 
-        font-size: 15px;
+      height: 2px;
 
-        line-height: 1.5;
+    }
 
-        opacity: 0.55;
-      }
+  </style>
 
 
-      /* --------------------------------
-         Shiny Live application viewport
-         -------------------------------- */
+  <!-- --------------------------------
+       Shiny Live / WebR
+       -------------------------------- -->
 
-      #root {
-        position: fixed;
+  <script
+    src="./shinylive/load-shinylive-sw.js"
+    type="module"
+  ></script>
 
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
 
-        width: auto;
-        height: auto;
+  <script type="module">
 
-        margin: 0;
-        padding: 0;
+    /*
+     * Detect phones before starting WebR.
+     */
 
-        overflow-y: auto;
-        overflow-x: hidden;
+    const isMobile =
+      window.matchMedia(
+        "(max-width: 767px)"
+      ).matches;
 
-        scrollbar-width: none;
-      }
 
+    if (!isMobile) {
 
-      /* --------------------------------
-         Hide scrollbar in Safari/WebKit
-         -------------------------------- */
+      const {
+        runExportedApp
+      } = await import(
+        "./shinylive/shinylive.js"
+      );
 
-      #root::-webkit-scrollbar {
-        display: none;
-      }
 
+      runExportedApp({
 
-      /* --------------------------------
-         Safari scroll-region diagnostic
-         -------------------------------- */
+        id: "root",
 
-      #root::after {
-        content: "";
+        appEngine: "r",
 
-        display: block;
+        relPath: "",
 
-        height: 2px;
-      }
+      });
 
-    </style>
+    }
 
+  </script>
 
-    <!-- --------------------------------
-         Shiny Live / WebR
-         -------------------------------- -->
 
-    <script
-      src="./shinylive/load-shinylive-sw.js"
-      type="module"
-    ></script>
+  <link
+    rel="stylesheet"
+    href="./shinylive/style-resets.css"
+  />
 
+  <link
+    rel="stylesheet"
+    href="./shinylive/shinylive.css"
+  />
 
-    <script type="module">
+</head>
 
-      /*
-       * Detect phones before starting WebR.
-       *
-       * Desktop:
-       *     Start the normal Black Box,i application.
-       *
-       * Mobile:
-       *     Do NOT start WebR.
-       *     Show the mobile notice instead.
-       */
 
-      const isMobile =
-        window.matchMedia("(max-width: 767px)").matches;
+<body>
 
 
-      if (!isMobile) {
+  <!-- =================================
+       Black Box,i Splash Screen
+       ================================= -->
 
-        const {
-          runExportedApp
-        } = await import(
-          "./shinylive/shinylive.js"
+  <div id="blackbox-splash">
+
+
+    <div class="bb-logo">
+
+      Black Box,i
+
+    </div>
+
+
+    <div class="bb-tagline">
+
+      Simple | Investing
+
+    </div>
+
+
+    <div class="bb-spinner"></div>
+
+
+    <div class="bb-loading">
+
+      Loading...
+
+    </div>
+
+
+    <div
+      id="bb-time"
+      class="bb-time">
+
+      0 seconds
+
+    </div>
+
+
+    <div
+      id="bb-notice"
+      class="bb-notice">
+
+      Loading the Black Box,i application...
+
+    </div>
+
+
+  </div>
+
+
+  <!-- =================================
+       Mobile Message
+       ================================= -->
+
+  <div id="blackbox-mobile">
+
+
+    <div class="bb-mobile-content">
+
+
+      <div class="bb-mobile-title">
+
+        Black Box,i
+
+      </div>
+
+
+      <div class="bb-mobile-tagline">
+
+        Simple | Investing
+
+      </div>
+
+
+      <div class="bb-mobile-message">
+
+        <strong>Built for desktop.</strong>
+
+        <br><br>
+
+        Black Box,i is designed for
+        Windows 11 and macOS desktop
+        computers.
+
+      </div>
+
+
+      <div class="bb-mobile-note">
+
+        We look forward to seeing you
+        on desktop.
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+  <!-- =================================
+       Shiny Live Application
+       ================================= -->
+
+  <div id="root"></div>
+
+
+  <!-- =================================
+       Loading Timer
+       ================================= -->
+
+  <script>
+
+    /*
+     * Mobile visitors never start WebR.
+     *
+     * Show the mobile message instead.
+     */
+
+    const isMobile =
+      window.matchMedia(
+        "(max-width: 767px)"
+      ).matches;
+
+
+    if (isMobile) {
+
+      document.getElementById(
+        "blackbox-splash"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "blackbox-mobile"
+      ).style.display = "flex";
+
+
+      document.getElementById(
+        "root"
+      ).style.display = "none";
+
+    }
+
+
+    /*
+     * Desktop loading timer.
+     *
+     * This timer does NOT control
+     * application loading.
+     *
+     * It simply measures how long
+     * the page takes to load.
+     */
+
+    if (!isMobile) {
+
+      const splash =
+        document.getElementById(
+          "blackbox-splash"
         );
 
 
-        runExportedApp({
-          id: "root",
-          appEngine: "r",
-          relPath: "",
-        });
-
-      }
-
-    </script>
-
-
-    <link
-      rel="stylesheet"
-      href="./shinylive/style-resets.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="./shinylive/shinylive.css"
-    />
-
-  </head>
-
-
-  <body>
-
-
-    <!-- =================================
-         Black Box, i Splash Screen
-         ================================= -->
-
-    <div id="blackbox-splash">
-
-
-      <div class="bb-logo">
-        Black Box,i
-      </div>
-
-
-      <div class="bb-tagline">
-        Simple | Investing
-      </div>
-
-
-      <div class="bb-spinner"></div>
-
-
-      <div class="bb-loading">
-
-        Loading...
-
-        <span id="bb-percent">
-          0%
-        </span>
-
-      </div>
-
-
-      <div class="bb-progress-container">
-
-        <div class="bb-progress-bar">
-
-          <div
-            id="bb-progress"
-            class="bb-progress">
-          </div>
-
-        </div>
-
-
-        <div
-          id="bb-time"
-          class="bb-time">
-
-          0 seconds
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="bb-notice"
-        class="bb-notice">
-
-        Load time may take 30 seconds or more...
-
-      </div>
-
-
-    </div>
-
-
-    <!-- =================================
-         Mobile Message
-         ================================= -->
-
-    <div id="blackbox-mobile">
-
-
-      <div class="bb-mobile-content">
-
-
-        <div class="bb-mobile-title">
-          Black Box,i
-        </div>
-
-
-        <div class="bb-mobile-tagline">
-          Simple | Investing
-        </div>
-
-
-        <div class="bb-mobile-message">
-
-          <strong>Built for desktop.</strong>
-
-          <br><br>
-
-          Black Box,i is designed for Windows 11
-          and macOS desktop computers.
-
-        </div>
-
-
-        <div class="bb-mobile-note">
-
-          We look forward to seeing you on desktop.
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-
-    <!-- =================================
-         Shiny Live Application
-         ================================= -->
-
-    <div id="root"></div>
-
-
-    <!-- =================================
-         Loading Animation
-         ================================= -->
-
-    <script>
-
-      /*
-       * Mobile visitors never start WebR.
-       * Show the mobile message and stop here.
-       */
-
-      const isMobile =
-        window.matchMedia("(max-width: 767px)").matches;
-
-
-      if (isMobile) {
-
+      const time =
         document.getElementById(
-          "blackbox-splash"
-        ).style.display = "none";
+          "bb-time"
+        );
 
 
-        document.getElementById(
-          "blackbox-mobile"
-        ).style.display = "flex";
-
-
-        document.getElementById(
-          "root"
-        ).style.display = "none";
-
-      }
+      let startTime =
+        performance.now();
 
 
       /*
-       * Desktop loading animation.
+       * Update the counter once per second.
        */
 
-      if (!isMobile) {
+      const timer =
+        setInterval(function () {
 
-        const splash =
-          document.getElementById(
-            "blackbox-splash"
-          );
-
-
-        const progress =
-          document.getElementById(
-            "bb-progress"
-          );
-
-
-        const percent =
-          document.getElementById(
-            "bb-percent"
-          );
-
-
-        const time =
-          document.getElementById(
-            "bb-time"
-          );
-
-
-        const notice =
-          document.getElementById(
-            "bb-notice"
-          );
-
-
-        const totalSeconds = 30;
-
-        let elapsed = 0;
-
-
-        const timer = setInterval(function () {
-
-          elapsed += 0.333;
-
-
-          if (elapsed > totalSeconds) {
-            elapsed = totalSeconds;
-          }
-
-
-          const percentage =
-            (elapsed / totalSeconds) * 100;
-
-
-          progress.style.width =
-            percentage + "%";
-
-
-          percent.textContent =
-            Math.floor(percentage) + "%";
-
-
-          const seconds =
-            Math.floor(elapsed);
+          const elapsed =
+            Math.floor(
+              (performance.now() -
+                startTime) / 1000
+            );
 
 
           time.textContent =
-            seconds +
+            elapsed +
             (
-              seconds === 1
+              elapsed === 1
                 ? " second"
                 : " seconds"
             );
 
+        }, 250);
 
-          if (elapsed >= totalSeconds) {
 
-            notice.textContent =
-              "You're doing great — almost there...";
+      /*
+       * Watch for the Shiny application
+       * to actually appear.
+       *
+       * We do not impose a maximum time.
+       */
+
+      const observer =
+        new MutationObserver(
+          function () {
+
+            const root =
+              document.getElementById(
+                "root"
+              );
+
+
+            /*
+             * Shiny Live creates content
+             * inside #root when the app
+             * has initialized.
+             */
+
+            if (
+              root &&
+              root.children.length > 0
+            ) {
+
+              clearInterval(timer);
+
+              observer.disconnect();
+
+
+              /*
+               * Capture final load time.
+               */
+
+              const finalSeconds =
+                (
+                  performance.now() -
+                  startTime
+                ) / 1000;
+
+
+              const roundedSeconds =
+                Math.floor(
+                  finalSeconds
+                );
+
+
+              time.textContent =
+                roundedSeconds +
+                (
+                  roundedSeconds === 1
+                    ? " second"
+                    : " seconds"
+                );
+
+
+              /*
+               * Fade the splash away.
+               */
+
+              splash.style.opacity =
+                "0";
+
+
+              setTimeout(
+                function () {
+
+                  splash.remove();
+
+                },
+                500
+              );
+
+            }
 
           }
+        );
 
 
-        }, 333);
+      observer.observe(
+        document.getElementById(
+          "root"
+        ),
+        {
+          childList: true,
+          subtree: true
+        }
+      );
+
+    }
+
+  </script>
 
 
-        /*
-         * Known-good splash duration.
-         */
-
-        setTimeout(function () {
-
-          clearInterval(timer);
-
-
-          progress.style.width = "100%";
-
-          percent.textContent = "100%";
-
-          time.textContent = "30 seconds";
-
-
-          splash.style.opacity = "0";
-
-
-          setTimeout(function () {
-
-            splash.remove();
-
-          }, 500);
-
-        }, 45000);
-
-      }
-
-    </script>
-
-  </body>
+</body>
 
 </html>
