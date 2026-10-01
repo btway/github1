@@ -6,13 +6,12 @@
 
   <meta charset="UTF-8" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+<meta
+ name="viewport"
+ content="width=device-width, initial-scale=1.0"
+/>
 
   <title>Black Box,i</title>
-
 
   <style>
 
@@ -22,15 +21,11 @@
 
     html,
     body {
-
       margin: 0;
       padding: 0;
-
       width: 100%;
       height: 100%;
-
       overflow: hidden;
-
     }
 
 
@@ -39,10 +34,8 @@
        -------------------------------- */
 
     #blackbox-splash {
-
       position: fixed;
       inset: 0;
-
       z-index: 2147483647;
 
       width: 100%;
@@ -52,12 +45,10 @@
 
       display: flex;
       flex-direction: column;
-
       align-items: center;
       justify-content: flex-start;
 
       padding-top: 60px;
-
       box-sizing: border-box;
 
       font-family:
@@ -67,7 +58,6 @@
 
       transition:
         opacity 0.5s ease;
-
     }
 
 
@@ -76,13 +66,9 @@
        -------------------------------- */
 
     .bb-logo {
-
       font-size: 42px;
-
       font-weight: 600;
-
       letter-spacing: -1px;
-
     }
 
 
@@ -91,13 +77,9 @@
        -------------------------------- */
 
     .bb-tagline {
-
       margin-top: 8px;
-
       font-size: 17px;
-
       opacity: 0.6;
-
     }
 
 
@@ -106,32 +88,25 @@
        -------------------------------- */
 
     .bb-spinner {
-
       width: 34px;
       height: 34px;
 
       margin-top: 38px;
 
       border: 4px solid #e5e5e5;
-
-      border-top:
-        4px solid #222222;
+      border-top: 4px solid #222222;
 
       border-radius: 50%;
 
       animation:
         bb-spin 0.9s linear infinite;
-
     }
 
 
     @keyframes bb-spin {
 
       to {
-
-        transform:
-          rotate(360deg);
-
+        transform: rotate(360deg);
       }
 
     }
@@ -142,13 +117,10 @@
        -------------------------------- */
 
     .bb-loading {
-
       margin-top: 18px;
 
       font-size: 16px;
-
       font-weight: 500;
-
     }
 
 
@@ -157,15 +129,26 @@
        -------------------------------- */
 
     .bb-time {
-
       margin-top: 10px;
 
       font-size: 14px;
-
       opacity: 0.5;
 
       text-align: center;
+    }
 
+
+    /* --------------------------------
+       Percentage
+       -------------------------------- */
+
+    .bb-percent {
+      margin-top: 6px;
+
+      font-size: 14px;
+      opacity: 0.5;
+
+      text-align: center;
     }
 
 
@@ -174,7 +157,6 @@
        -------------------------------- */
 
     .bb-notice {
-
       margin-top: 34px;
 
       max-width: 520px;
@@ -182,11 +164,9 @@
       text-align: center;
 
       font-size: 17px;
-
       line-height: 1.6;
 
       opacity: 0.55;
-
     }
 
 
@@ -195,7 +175,6 @@
        -------------------------------- */
 
     #blackbox-mobile {
-
       display: none;
 
       position: fixed;
@@ -217,62 +196,45 @@
       text-align: center;
 
       padding: 30px;
-
       box-sizing: border-box;
-
     }
 
 
     .bb-mobile-content {
-
       max-width: 420px;
-
     }
 
 
     .bb-mobile-title {
-
       font-size: 36px;
-
       font-weight: 600;
-
       letter-spacing: -1px;
-
     }
 
 
     .bb-mobile-tagline {
-
       margin-top: 8px;
 
       font-size: 17px;
-
       opacity: 0.6;
-
     }
 
 
     .bb-mobile-message {
-
       margin-top: 42px;
 
       font-size: 18px;
-
       line-height: 1.6;
-
     }
 
 
     .bb-mobile-note {
-
       margin-top: 22px;
 
       font-size: 15px;
-
       line-height: 1.5;
 
       opacity: 0.55;
-
     }
 
 
@@ -281,7 +243,6 @@
        -------------------------------- */
 
     #root {
-
       position: fixed;
 
       top: 0;
@@ -299,7 +260,6 @@
       overflow-x: hidden;
 
       scrollbar-width: none;
-
     }
 
 
@@ -308,9 +268,7 @@
        -------------------------------- */
 
     #root::-webkit-scrollbar {
-
       display: none;
-
     }
 
 
@@ -319,17 +277,14 @@
        -------------------------------- */
 
     #root::after {
-
       content: "";
 
       display: block;
 
       height: 2px;
-
     }
 
   </style>
-
 
   <!-- --------------------------------
        Shiny Live / WebR
@@ -339,7 +294,6 @@
     src="./shinylive/load-shinylive-sw.js"
     type="module"
   ></script>
-
 
   <script type="module">
 
@@ -363,19 +317,14 @@
 
 
       runExportedApp({
-
         id: "root",
-
         appEngine: "r",
-
         relPath: "",
-
       });
 
     }
 
   </script>
-
 
   <link
     rel="stylesheet"
@@ -389,307 +338,7 @@
 
 </head>
 
-
 <body>
-
 
   <!-- =================================
        Black Box,i Splash Screen
-       ================================= -->
-
-  <div id="blackbox-splash">
-
-
-    <div class="bb-logo">
-
-      Black Box,i
-
-    </div>
-
-
-    <div class="bb-tagline">
-
-      Simple | Investing
-
-    </div>
-
-
-    <div class="bb-spinner"></div>
-
-
-    <div class="bb-loading">
-
-      Loading...
-
-    </div>
-
-
-    <div
-      id="bb-time"
-      class="bb-time">
-
-      0 seconds
-
-    </div>
-
-
-    <div
-      id="bb-notice"
-      class="bb-notice">
-
-      Loading the Black Box,i application...
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =================================
-       Mobile Message
-       ================================= -->
-
-  <div id="blackbox-mobile">
-
-
-    <div class="bb-mobile-content">
-
-
-      <div class="bb-mobile-title">
-
-        Black Box,i
-
-      </div>
-
-
-      <div class="bb-mobile-tagline">
-
-        Simple | Investing
-
-      </div>
-
-
-      <div class="bb-mobile-message">
-
-        <strong>Built for desktop.</strong>
-
-        <br><br>
-
-        Black Box,i is designed for
-        Windows 11 and macOS desktop
-        computers.
-
-      </div>
-
-
-      <div class="bb-mobile-note">
-
-        We look forward to seeing you
-        on desktop.
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =================================
-       Shiny Live Application
-       ================================= -->
-
-  <div id="root"></div>
-
-
-  <!-- =================================
-       Loading Timer
-       ================================= -->
-
-  <script>
-
-    /*
-     * Mobile visitors never start WebR.
-     *
-     * Show the mobile message instead.
-     */
-
-    const isMobile =
-      window.matchMedia(
-        "(max-width: 767px)"
-      ).matches;
-
-
-    if (isMobile) {
-
-      document.getElementById(
-        "blackbox-splash"
-      ).style.display = "none";
-
-
-      document.getElementById(
-        "blackbox-mobile"
-      ).style.display = "flex";
-
-
-      document.getElementById(
-        "root"
-      ).style.display = "none";
-
-    }
-
-
-    /*
-     * Desktop loading timer.
-     *
-     * This timer does NOT control
-     * application loading.
-     *
-     * It simply measures how long
-     * the page takes to load.
-     */
-
-    if (!isMobile) {
-
-      const splash =
-        document.getElementById(
-          "blackbox-splash"
-        );
-
-
-      const time =
-        document.getElementById(
-          "bb-time"
-        );
-
-
-      let startTime =
-        performance.now();
-
-
-      /*
-       * Update the counter once per second.
-       */
-
-      const timer =
-        setInterval(function () {
-
-          const elapsed =
-            Math.floor(
-              (performance.now() -
-                startTime) / 1000
-            );
-
-
-          time.textContent =
-            elapsed +
-            (
-              elapsed === 1
-                ? " second"
-                : " seconds"
-            );
-
-        }, 250);
-
-
-      /*
-       * Watch for the Shiny application
-       * to actually appear.
-       *
-       * We do not impose a maximum time.
-       */
-
-      const observer =
-        new MutationObserver(
-          function () {
-
-            const root =
-              document.getElementById(
-                "root"
-              );
-
-
-            /*
-             * Shiny Live creates content
-             * inside #root when the app
-             * has initialized.
-             */
-
-            if (
-              root &&
-              root.children.length > 0
-            ) {
-
-              clearInterval(timer);
-
-              observer.disconnect();
-
-
-              /*
-               * Capture final load time.
-               */
-
-              const finalSeconds =
-                (
-                  performance.now() -
-                  startTime
-                ) / 1000;
-
-
-              const roundedSeconds =
-                Math.floor(
-                  finalSeconds
-                );
-
-
-              time.textContent =
-                roundedSeconds +
-                (
-                  roundedSeconds === 1
-                    ? " second"
-                    : " seconds"
-                );
-
-
-              /*
-               * Fade the splash away.
-               */
-
-              splash.style.opacity =
-                "0";
-
-
-              setTimeout(
-                function () {
-
-                  splash.remove();
-
-                },
-                500
-              );
-
-            }
-
-          }
-        );
-
-
-      observer.observe(
-        document.getElementById(
-          "root"
-        ),
-        {
-          childList: true,
-          subtree: true
-        }
-      );
-
-    }
-
-  </script>
-
-
-</body>
-
-</html>
