@@ -1,516 +1,309 @@
 <!doctype html>
-
 <html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <head>
+  <title>Black Box, i</title>
 
-    <meta charset="UTF-8" />
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: #ffffff;
 
-    <title>Black Box, i</title>
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-    <!-- =========================================================
-         SHINYLIVE / WEBR
-         ========================================================= -->
+      opacity: 1;
+      visibility: visible;
 
-    <script
-      src="./shinylive/load-shinylive-sw.js"
-      type="module"
-    ></script>
+      transition:
+        opacity 0.6s ease,
+        visibility 0.6s ease;
+    }
 
-    <script type="module">
+    #splash.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-      import { runExportedApp } from "./shinylive/shinylive.js";
+    .logo {
+      text-align: center;
+      margin-bottom: 34px;
+    }
 
-      runExportedApp({
-        id: "root",
-        appEngine: "r",
-        relPath: "",
-      });
+    .title {
+      font-size: 38px;
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      color: #111111;
+      line-height: 1.05;
+    }
 
-    </script>
+    .tagline {
+      margin-top: 9px;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: #777777;
+    }
 
-    <link
-      rel="stylesheet"
-      href="./shinylive/style-resets.css"
-    />
+    /* Spinner */
 
-    <link
-      rel="stylesheet"
-      href="./shinylive/shinylive.css"
-    />
+    .spinner {
+      width: 34px;
+      height: 34px;
+      border: 3px solid #e6e6e6;
+      border-top: 3px solid #222222;
+      border-radius: 50%;
 
+      animation: spin 0.9s linear infinite;
 
-    <!-- =========================================================
-         BLACK BOX, i SPLASH SCREEN
-         ========================================================= -->
+      margin-bottom: 28px;
+    }
 
-    <style>
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
+    /* Progress area */
+
+    .progress-container {
+      width: min(320px, 70vw);
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 5px;
+
+      background: #eeeeee;
+      border-radius: 10px;
+
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+
+      background: #222222;
+      border-radius: 10px;
+
+      transition: width 0.15s linear;
+    }
+
+    .progress-text {
+      margin-top: 12px;
+
+      font-size: 13px;
+      color: #777777;
+
+      letter-spacing: 0.5px;
+
+      min-height: 18px;
+    }
+
+    .loading-text {
+      margin-top: 7px;
+
+      font-size: 11px;
+      color: #aaaaaa;
+
+      letter-spacing: 0.4px;
+    }
+
+    @media (max-width: 500px) {
+
+      .title {
+        font-size: 32px;
       }
 
-      body {
-        overflow: hidden;
-        background: #ffffff;
-        font-family:
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          Helvetica,
-          Arial,
-          sans-serif;
-      }
-
-
-      /* ---------------------------------------------------------
-         SPLASH
-         --------------------------------------------------------- */
-
-      #blackbox-splash {
-
-        position: fixed;
-
-        inset: 0;
-
-        width: 100%;
-        height: 100%;
-
-        z-index: 999999;
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-
-        justify-content: center;
-
-        background: #ffffff;
-
-        text-align: center;
-
-        opacity: 1;
-
-        transition:
-          opacity 0.6s ease;
-
-      }
-
-
-      /* ---------------------------------------------------------
-         TITLE
-         --------------------------------------------------------- */
-
-      .bb-title {
-
-        font-size: 46px;
-
-        font-weight: 600;
-
-        letter-spacing: -1.8px;
-
-        line-height: 1;
-
-        color: #111111;
-
-      }
-
-
-      /* ---------------------------------------------------------
-         TAGLINE
-         --------------------------------------------------------- */
-
-      .bb-tagline {
-
-        margin-top: 10px;
-
-        font-size: 17px;
-
-        font-weight: 400;
-
-        letter-spacing: 0.2px;
-
-        color: #666666;
-
-      }
-
-
-      /* ---------------------------------------------------------
-         SPINNER
-         --------------------------------------------------------- */
-
-      .bb-spinner {
-
-        width: 42px;
-
-        height: 42px;
-
-        margin-top: 42px;
-
-        border-radius: 50%;
-
-        border: 4px solid #e8e8e8;
-
-        border-top-color: #111111;
-
-        animation:
-          bb-spin 0.85s linear infinite;
-
-      }
-
-
-      @keyframes bb-spin {
-
-        from {
-          transform: rotate(0deg);
-        }
-
-        to {
-          transform: rotate(360deg);
-        }
-
-      }
-
-
-      /* ---------------------------------------------------------
-         LOADING TEXT
-         --------------------------------------------------------- */
-
-      .bb-loading {
-
-        margin-top: 22px;
-
-        font-size: 15px;
-
-        font-weight: 500;
-
-        color: #333333;
-
-        letter-spacing: 0.2px;
-
-      }
-
-
-      /* ---------------------------------------------------------
-         PROGRESS AREA
-         --------------------------------------------------------- */
-
-      .bb-progress-container {
-
-        width: min(360px, 70vw);
-
-        margin-top: 18px;
-
-      }
-
-
-      .bb-progress-track {
-
-        position: relative;
-
-        width: 100%;
-
-        height: 7px;
-
-        overflow: hidden;
-
-        border-radius: 10px;
-
-        background: #e8e8e8;
-
-      }
-
-
-      .bb-progress-bar {
-
-        width: 0%;
-
-        height: 100%;
-
-        border-radius: 10px;
-
-        background: #111111;
-
-        transition:
-          width 0.25s linear;
-
-      }
-
-
-      /* ---------------------------------------------------------
-         PERCENTAGE
-         --------------------------------------------------------- */
-
-      .bb-percent {
-
-        margin-top: 9px;
-
+      .tagline {
         font-size: 13px;
-
-        font-weight: 500;
-
-        color: #777777;
-
-        letter-spacing: 0.5px;
-
+        letter-spacing: 2.5px;
       }
 
-
-      /* ---------------------------------------------------------
-         ROOT
-         --------------------------------------------------------- */
-
-      #root {
-
-        width: 100vw;
-
-        height: 100vh;
-
+      .progress-container {
+        width: 75vw;
       }
+    }
+  </style>
+</head>
 
-    </style>
+<body>
 
-  </head>
+  <!-- =========================================================
+       BLACK BOX, i SPLASH SCREEN
+       ========================================================= -->
 
+  <div id="splash">
 
-  <body>
-
-
-    <!-- =========================================================
-         BLACK BOX, i SPLASH
-         ========================================================= -->
-
-    <div id="blackbox-splash">
-
-      <div class="bb-title">
+    <div class="logo">
+      <div class="title">
         Black Box, i
       </div>
 
-      <div class="bb-tagline">
+      <div class="tagline">
         Simple | Investing
       </div>
+    </div>
 
+    <div class="spinner"></div>
 
-      <div class="bb-spinner"></div>
+    <div class="progress-container">
 
-
-      <div class="bb-loading">
-        Loading...
-      </div>
-
-
-      <div class="bb-progress-container">
-
-        <div class="bb-progress-track">
-
-          <div
-            id="bb-progress-bar"
-            class="bb-progress-bar">
-          </div>
-
-        </div>
-
-
+      <div class="progress-bar">
         <div
-          id="bb-percent"
-          class="bb-percent">
-          0%
+          id="progressFill"
+          class="progress-fill">
         </div>
+      </div>
 
+      <div
+        id="progressText"
+        class="progress-text">
+        0%
+      </div>
+
+      <div class="loading-text">
+        Loading Black Box, i...
       </div>
 
     </div>
 
-
-    <!-- =========================================================
-         SHINYLIVE ROOT
-         ========================================================= -->
-
-    <div
-      style="height: 100vh; width: 100vw"
-      id="root">
-    </div>
+  </div>
 
 
-    <!-- =========================================================
-         PROGRESS / SPLASH CONTROL
-         ========================================================= -->
+  <!-- =========================================================
+       LOADING SCRIPT
+       ========================================================= -->
 
-    <script>
+  <script>
 
-      (function () {
+    (function () {
 
-        const splash =
-          document.getElementById(
-            "blackbox-splash"
-          );
+      /* -------------------------------------------------------
+         SETTINGS
+         ------------------------------------------------------- */
 
-        const progressBar =
-          document.getElementById(
-            "bb-progress-bar"
-          );
-
-        const percent =
-          document.getElementById(
-            "bb-percent"
-          );
-
-        const root =
-          document.getElementById(
-            "root"
-          );
+      const TOTAL_TIME = 40000; // 40 seconds
 
 
-        /*
-         * The visual progress gauge reaches
-         * 100% after 40 seconds.
-         *
-         * This does NOT control WebR.
-         *
-         * WebR is allowed to take as long
-         * as it needs.
-         */
+      /* -------------------------------------------------------
+         ELEMENTS
+         ------------------------------------------------------- */
 
-        const START_TIME =
-          performance.now();
+      const splash =
+        document.getElementById("splash");
 
-        const GAUGE_TIME =
-          40000;
+      const progressFill =
+        document.getElementById("progressFill");
+
+      const progressText =
+        document.getElementById("progressText");
 
 
-        const progressTimer =
-          setInterval(function () {
+      /* -------------------------------------------------------
+         START TIME
+         ------------------------------------------------------- */
 
-            const elapsed =
-              performance.now() -
-              START_TIME;
-
-
-            let progress =
-              Math.floor(
-                (elapsed / GAUGE_TIME) * 100
-              );
+      const startTime = Date.now();
 
 
-            progress =
-              Math.min(
-                100,
-                progress
-              );
+      /* -------------------------------------------------------
+         PROGRESS LOOP
+         ------------------------------------------------------- */
+
+      function updateProgress() {
+
+        const elapsed =
+          Date.now() - startTime;
+
+        let percentage =
+          (elapsed / TOTAL_TIME) * 100;
 
 
-            progressBar.style.width =
-              progress + "%";
+        /* Never exceed 100 */
+
+        percentage =
+          Math.min(percentage, 100);
 
 
-            percent.textContent =
-              progress + "%";
+        /* Update bar */
+
+        progressFill.style.width =
+          percentage + "%";
 
 
-          }, 100);
+        /* Update number */
+
+        progressText.textContent =
+          Math.floor(percentage) + "%";
 
 
-        /*
-         * Watch for the actual Shiny/WebR
-         * application to appear.
-         */
+        /* ---------------------------------------------------
+           HOLD SPLASH FOR FULL 40 SECONDS
+           --------------------------------------------------- */
 
-        const observer =
-          new MutationObserver(function () {
+        if (elapsed < TOTAL_TIME) {
 
-            if (
-              root.children.length > 0
-            ) {
+          requestAnimationFrame(updateProgress);
 
-              clearInterval(
-                progressTimer
-              );
+        } else {
 
-              observer.disconnect();
+          /* Make absolutely sure we finish at 100% */
+
+          progressFill.style.width = "100%";
+          progressText.textContent = "100%";
 
 
-              /*
-               * If WebR finishes before
-               * 40 seconds, show the actual
-               * visual position where it
-               * finished.
-               */
+          /* -------------------------------------------------
+             IMPORTANT:
+             Do NOT hide the splash early.
 
-              const elapsed =
-                performance.now() -
-                START_TIME;
+             Wait until the browser has painted 100%.
+             ------------------------------------------------- */
 
+          setTimeout(function () {
 
-              let finalProgress =
-                Math.floor(
-                  (elapsed / GAUGE_TIME) * 100
-                );
+            splash.classList.add("hide");
 
+          }, 250);
 
-              finalProgress =
-                Math.min(
-                  100,
-                  finalProgress
-                );
+        }
+
+      }
 
 
-              progressBar.style.width =
-                finalProgress + "%";
+      /* -------------------------------------------------------
+         START
+         ------------------------------------------------------- */
 
+      requestAnimationFrame(updateProgress);
 
-              percent.textContent =
-                finalProgress + "%";
+    })();
 
+  </script>
 
-              /*
-               * Give the final percentage
-               * a moment to be visible,
-               * then fade the splash away.
-               */
-
-              setTimeout(function () {
-
-                splash.style.opacity =
-                  "0";
-
-
-                setTimeout(function () {
-
-                  splash.remove();
-
-                  document.body.style.overflow =
-                    "auto";
-
-                }, 600);
-
-              }, 250);
-
-            }
-
-          });
-
-
-        observer.observe(
-          root,
-          {
-            childList: true,
-            subtree: true
-          }
-        );
-
-
-      })();
-
-    </script>
-
-  </body>
-
+</body>
 </html>
