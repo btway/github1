@@ -15,6 +15,10 @@
 
   <style>
 
+    /* --------------------------------
+       Prevent document-level scrolling
+       -------------------------------- */
+
     html,
     body {
       margin: 0;
@@ -57,7 +61,9 @@
     }
 
 
-    /* Logo */
+    /* --------------------------------
+       Logo
+       -------------------------------- */
 
     .bb-logo {
       font-size: 42px;
@@ -66,16 +72,22 @@
     }
 
 
-    /* Tagline */
+    /* --------------------------------
+       Tagline
+       -------------------------------- */
 
     .bb-tagline {
       margin-top: 8px;
+
       font-size: 17px;
+
       opacity: 0.6;
     }
 
 
-    /* Spinner */
+    /* --------------------------------
+       Spinner
+       -------------------------------- */
 
     .bb-spinner {
       width: 34px;
@@ -84,7 +96,9 @@
       margin-top: 38px;
 
       border: 4px solid #e5e5e5;
-      border-top: 4px solid #222222;
+
+      border-top:
+        4px solid #222222;
 
       border-radius: 50%;
 
@@ -96,47 +110,44 @@
     @keyframes bb-spin {
 
       to {
-        transform: rotate(360deg);
+        transform:
+          rotate(360deg);
       }
 
     }
 
 
-    /* Loading */
+    /* --------------------------------
+       Loading text
+       -------------------------------- */
 
     .bb-loading {
       margin-top: 18px;
 
       font-size: 16px;
+
       font-weight: 500;
     }
 
 
-    /* Timer */
+    /* --------------------------------
+       Percentage
+       -------------------------------- */
 
-    .bb-time {
+    .bb-percent {
       margin-top: 10px;
 
       font-size: 14px;
+
       opacity: 0.5;
 
       text-align: center;
     }
 
 
-    /* Percentage */
-
-    .bb-percent {
-      margin-top: 5px;
-
-      font-size: 14px;
-      opacity: 0.5;
-
-      text-align: center;
-    }
-
-
-    /* Notice */
+    /* --------------------------------
+       Desktop message
+       -------------------------------- */
 
     .bb-notice {
       margin-top: 34px;
@@ -146,6 +157,7 @@
       text-align: center;
 
       font-size: 17px;
+
       line-height: 1.6;
 
       opacity: 0.55;
@@ -153,13 +165,15 @@
 
 
     /* --------------------------------
-       Mobile
+       Mobile message
        -------------------------------- */
 
     #blackbox-mobile {
+
       display: none;
 
       position: fixed;
+
       inset: 0;
 
       width: 100%;
@@ -168,6 +182,7 @@
       background: #ffffff;
 
       align-items: center;
+
       justify-content: center;
 
       font-family:
@@ -178,6 +193,7 @@
       text-align: center;
 
       padding: 30px;
+
       box-sizing: border-box;
     }
 
@@ -189,396 +205,7 @@
 
     .bb-mobile-title {
       font-size: 36px;
+
       font-weight: 600;
-      letter-spacing: -1px;
-    }
 
-
-    .bb-mobile-tagline {
-      margin-top: 8px;
-
-      font-size: 17px;
-      opacity: 0.6;
-    }
-
-
-    .bb-mobile-message {
-      margin-top: 42px;
-
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-
-    .bb-mobile-note {
-      margin-top: 22px;
-
-      font-size: 15px;
-      line-height: 1.5;
-
-      opacity: 0.55;
-    }
-
-
-    /* --------------------------------
-       Shiny Live application
-       -------------------------------- */
-
-    #root {
-      position: fixed;
-
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-
-      width: auto;
-      height: auto;
-
-      margin: 0;
-      padding: 0;
-
-      overflow-y: auto;
-      overflow-x: hidden;
-
-      scrollbar-width: none;
-    }
-
-
-    #root::-webkit-scrollbar {
-      display: none;
-    }
-
-
-    #root::after {
-      content: "";
-
-      display: block;
-
-      height: 2px;
-    }
-
-  </style>
-
-  <!-- --------------------------------
-       Shiny Live / WebR
-       -------------------------------- -->
-
-  <script
-    src="./shinylive/load-shinylive-sw.js"
-    type="module"
-  ></script>
-
-  <script type="module">
-
-    /*
-     * Detect phones before starting WebR.
-     */
-
-    const isMobile =
-      window.matchMedia(
-        "(max-width: 767px)"
-      ).matches;
-
-
-    if (!isMobile) {
-
-      const {
-        runExportedApp
-      } = await import(
-        "./shinylive/shinylive.js"
-      );
-
-
-      runExportedApp({
-
-        id: "root",
-
-        appEngine: "r",
-
-        relPath: "",
-
-      });
-
-    }
-
-  </script>
-
-  <link
-    rel="stylesheet"
-    href="./shinylive/style-resets.css"
-  />
-
-  <link
-    rel="stylesheet"
-    href="./shinylive/shinylive.css"
-  />
-
-</head>
-
-<body>
-
-  <!-- =================================
-       Black Box,i Splash Screen
-       ================================= -->
-
-  <div id="blackbox-splash">
-
-```
-<div class="bb-logo">
-  Black Box,i
-</div>
-
-
-<div class="bb-tagline">
-  Simple | Investing
-</div>
-
-
-<div class="bb-spinner"></div>
-
-
-<div class="bb-loading">
-  Loading...
-</div>
-
-
-<div
-  id="bb-time"
-  class="bb-time"
->
-  0 seconds
-</div>
-
-
-<div
-  id="bb-percent"
-  class="bb-percent"
->
-  0%
-</div>
-
-
-<div
-  id="bb-notice"
-  class="bb-notice"
->
-  Loading the Black Box,i application...
-</div>
-```
-
-  </div>
-
-  <!-- =================================
-       Mobile Message
-       ================================= -->
-
-  <div id="blackbox-mobile">
-
-```
-<div class="bb-mobile-content">
-
-
-  <div class="bb-mobile-title">
-    Black Box,i
-  </div>
-
-
-  <div class="bb-mobile-tagline">
-    Simple | Investing
-  </div>
-
-
-  <div class="bb-mobile-message">
-
-    <strong>Built for desktop.</strong>
-
-    <br><br>
-
-    Black Box,i is designed for
-    Windows 11 and macOS desktop
-    computers.
-
-  </div>
-
-
-  <div class="bb-mobile-note">
-
-    We look forward to seeing you
-    on desktop.
-
-  </div>
-
-
-</div>
-```
-
-  </div>
-
-  <!-- =================================
-       Shiny Live Application
-       ================================= -->
-
-  <div id="root"></div>
-
-  <!-- =================================
-       Loading Timer
-       ================================= -->
-
-  <script>
-
-    /*
-     * Mobile visitors never start WebR.
-     */
-
-    const isMobile =
-      window.matchMedia(
-        "(max-width: 767px)"
-      ).matches;
-
-
-    if (isMobile) {
-
-      document.getElementById(
-        "blackbox-splash"
-      ).style.display = "none";
-
-
-      document.getElementById(
-        "blackbox-mobile"
-      ).style.display = "flex";
-
-
-      document.getElementById(
-        "root"
-      ).style.display = "none";
-
-    }
-
-
-    /*
-     * Desktop loading timer.
-     */
-
-    if (!isMobile) {
-
-
-      const splash =
-        document.getElementById(
-          "blackbox-splash"
-        );
-
-
-      const time =
-        document.getElementById(
-          "bb-time"
-        );
-
-
-      const percent =
-        document.getElementById(
-          "bb-percent"
-        );
-
-
-      const startTime =
-        performance.now();
-
-
-      /*
-       * Timer runs independently.
-       *
-       * 40 seconds = 100%.
-       *
-       * It does NOT control WebR.
-       */
-
-      const timer =
-        setInterval(function () {
-
-
-          const elapsed =
-            Math.floor(
-              (
-                performance.now() -
-                startTime
-              ) / 1000
-            );
-
-
-          time.textContent =
-            elapsed +
-            (
-              elapsed === 1
-                ? " second"
-                : " seconds"
-            );
-
-
-          const progress =
-            Math.min(
-              100,
-              Math.floor(
-                (elapsed / 40) * 100
-              )
-            );
-
-
-          percent.textContent =
-            progress + "%";
-
-
-        }, 250);
-
-
-      /*
-       * Watch for WebR/Shiny
-       * to create content.
-       */
-
-      const observer =
-        new MutationObserver(
-          function () {
-
-
-            const root =
-              document.getElementById(
-                "root"
-              );
-
-
-            if (
-              root &&
-              root.children.length > 0
-            ) {
-
-
-              clearInterval(timer);
-
-
-              observer.disconnect();
-
-
-              /*
-               * Capture actual
-               * final load time.
-               */
-
-              const finalSeconds =
-                (
-                  performance.now() -
-                  startTime
-                ) / 1000;
-
-
-              const roundedSeconds =
-                Math.floor(
-                  finalSeconds
-                );
-
-
-              time.textContent =
-                roundedSeconds +
-                (
-                  roundedSeconds === 1
-                    ? " seco
+      letter-spac
