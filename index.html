@@ -4,96 +4,14 @@
 
 <head>
 
-<!-- =====================================================
-     SAFARI CHECK
-     ===================================================== -->
-
-<script>
-
-(function () {
-
-  var ua = navigator.userAgent;
-
-  var isSafari =
-    /Safari/i.test(ua) &&
-    !/Chrome/i.test(ua) &&
-    !/Chromium/i.test(ua) &&
-    !/CriOS/i.test(ua) &&
-    !/Edg/i.test(ua) &&
-    !/OPR/i.test(ua) &&
-    !/FxiOS/i.test(ua);
-
-  if (isSafari) {
-
-    document.write(
-      '<style>' +
-      'html,body {' +
-      'margin:0;' +
-      'padding:0;' +
-      'width:100%;' +
-      'height:100%;' +
-      'background:white;' +
-      'font-family:Arial,sans-serif;' +
-      '}' +
-      '#safari-message {' +
-      'position:absolute;' +
-      'top:50%;' +
-      'left:50%;' +
-      'transform:translate(-50%,-50%);' +
-      'text-align:center;' +
-      'width:90%;' +
-      'max-width:500px;' +
-      'color:#555;' +
-      '}' +
-      '#safari-message h1 {' +
-      'font-size:36px;' +
-      'font-weight:600;' +
-      'color:#111;' +
-      'margin:0 0 15px 0;' +
-      '}' +
-      '#safari-message p {' +
-      'font-size:16px;' +
-      'line-height:1.6;' +
-      'margin:0;' +
-      '}' +
-      '</style>' +
-      '<div id="safari-message">' +
-      '<h1>Black Box, i</h1>' +
-      '<p>This application is deisgned for Google Chrome.<br><br>' +
-      'Please open Black Box, i in Google Chrome to continue.</p>' +
-      '</div>'
-    );
-
-    throw new Error(
-      "Safari blocked: Chrome is required."
-    );
-
-  }
-
-})();
-
-</script>
-
-
-<!-- =====================================================
-     GOOGLE ANALYTICS 4
-     ===================================================== -->
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0C9703M4J"></script>
-
 <script>
-
   window.dataLayer = window.dataLayer || [];
-
-  function gtag(){
-    dataLayer.push(arguments);
-  }
-
+  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-T0C9703M4J');
-
 </script>
 
 
@@ -122,5 +40,389 @@
 
       id: "root",
 
-      ap
+      appEngine: "r",
+
+      relPath: "",
+
+    });
+
+  </script>
+
+
+  <link
+    rel="stylesheet"
+    href="./shinylive/style-resets.css"
+  />
+
+
+  <link
+    rel="stylesheet"
+    href="./shinylive/shinylive.css"
+  />
+
+
+  <style>
+
+    /*
+       =========================================================
+       SPLASH
+       =========================================================
+    */
+
+    #blackbox-splash {
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      background: white;
+
+      z-index: 999999;
+
+      text-align: center;
+
+      font-family: Arial, sans-serif;
+
+      animation:
+        blackbox-hide 0.6s ease 40s forwards;
+
+    }
+
+
+    /*
+       =========================================================
+       TOP CONTENT
+       =========================================================
+    */
+
+    #blackbox-content {
+
+      position: absolute;
+
+      top: 30px;
+
+      left: 0;
+
+      right: 0;
+
+    }
+
+
+    /*
+       =========================================================
+       TITLE
+       =========================================================
+    */
+
+    #blackbox-title {
+
+      font-size: 38px;
+
+      font-weight: 600;
+
+      color: #111;
+
+    }
+
+
+    /*
+       =========================================================
+       TAGLINE
+       =========================================================
+    */
+
+    #blackbox-tagline {
+
+      margin-top: 8px;
+
+      font-size: 14px;
+
+      letter-spacing: 3px;
+
+      color: #777;
+
+    }
+
+
+    /*
+       =========================================================
+       SPINNER
+       =========================================================
+    */
+
+    #blackbox-spinner {
+
+      width: 32px;
+
+      height: 32px;
+
+      margin: 28px auto;
+
+      border: 4px solid #eee;
+
+      border-top: 4px solid #222;
+
+      border-radius: 50%;
+
+      animation:
+        blackbox-spin 1s linear infinite;
+
+    }
+
+
+    @keyframes blackbox-spin {
+
+      from {
+
+        transform: rotate(0deg);
+
+      }
+
+      to {
+
+        transform: rotate(360deg);
+
+      }
+
+    }
+
+
+    /*
+       =========================================================
+       PROGRESS TRACK
+       =========================================================
+    */
+
+    #blackbox-progress {
+
+      width: 320px;
+
+      max-width: 70vw;
+
+      height: 6px;
+
+      margin: 0 auto;
+
+      background: #eee;
+
+      border-radius: 10px;
+
+      overflow: hidden;
+
+    }
+
+
+    /*
+       =========================================================
+       PROGRESS BAR
+       =========================================================
+    */
+
+    #blackbox-progress-bar {
+
+      width: 0%;
+
+      height: 100%;
+
+      background: #222;
+
+      border-radius: 10px;
+
+      animation:
+        blackbox-progress 40s linear forwards;
+
+    }
+
+
+    @keyframes blackbox-progress {
+
+      from {
+
+        width: 0%;
+
+      }
+
+      to {
+
+        width: 100%;
+
+      }
+
+    }
+
+
+    /*
+       =========================================================
+       PERCENTAGE
+       =========================================================
+    */
+
+    #blackbox-percent {
+
+      margin-top: 10px;
+
+      font-size: 13px;
+
+      color: #777;
+
+      letter-spacing: 0.5px;
+
+    }
+
+
+    /*
+       =========================================================
+       HIDE SPLASH
+       =========================================================
+    */
+
+    @keyframes blackbox-hide {
+
+      from {
+
+        opacity: 1;
+
+        visibility: visible;
+
+      }
+
+      to {
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        pointer-events: none;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       ORIGINAL WEBR ROOT
+       ===================================================== -->
+
+  <div
+    style="height: 100vh; width: 100vw"
+    id="root">
+  </div>
+
+
+  <!-- =====================================================
+       BLACK BOX, i SPLASH
+       ===================================================== -->
+
+  <div id="blackbox-splash">
+
+    <div id="blackbox-content">
+
+
+      <div id="blackbox-title">
+
+        Black Box, i
+
+      </div>
+
+
+      <div id="blackbox-tagline">
+
+        Simple | Investing
+
+      </div>
+
+
+      <div id="blackbox-spinner"></div>
+
+
+      <div id="blackbox-progress">
+
+        <div id="blackbox-progress-bar"></div>
+
+      </div>
+
+
+      <div id="blackbox-percent">
+
+        0%
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       PERCENTAGE DISPLAY ONLY
+       ===================================================== -->
+
+  <script>
+
+    (function () {
+
+      var start =
+        new Date().getTime();
+
+      var duration =
+        40000;
+
+
+      var percent =
+        document.getElementById(
+          "blackbox-percent"
+        );
+
+
+      var timer =
+        setInterval(function () {
+
+          var elapsed =
+            new Date().getTime() - start;
+
+
+          var value =
+            Math.floor(
+              (elapsed / duration) * 100
+            );
+
+
+          if (value >= 100) {
+
+            value = 100;
+
+            clearInterval(timer);
+
+          }
+
+
+          percent.textContent =
+            value + "%";
+
+
+        }, 400);
+
+
+    })();
+
+  </script>
+
+
+</body>
+
+</html>
 
