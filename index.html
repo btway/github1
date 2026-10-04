@@ -15,102 +15,32 @@
 
 
   <!-- =========================================================
-       MOBILE DETECTION
-       ========================================================= -->
-
-  <script>
-
-    (function () {
-
-      const isMobile =
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-        .test(navigator.userAgent);
-
-      if (isMobile) {
-
-        document.documentElement.classList.add(
-          "blackbox-mobile"
-        );
-
-      }
-
-    })();
-
-  </script>
-
-
-  <!-- =========================================================
        SHINYLIVE / WEBR
-       DESKTOP ONLY
+       ORIGINAL BUILT-IN WEBR CODE
        ========================================================= -->
 
-  <script>
-
-    (function () {
-
-      const isMobile =
-        document.documentElement.classList.contains(
-          "blackbox-mobile"
-        );
-
-      if (isMobile) {
-
-        return;
-
-      }
-
-      const script =
-        document.createElement("script");
-
-      script.src =
-        "./shinylive/load-shinylive-sw.js";
-
-      script.type =
-        "module";
-
-      document.head.appendChild(
-        script
-      );
-
-    })();
-
+  <script
+    src="./shinylive/load-shinylive-sw.js"
+    type="module">
   </script>
 
-
-  <!-- =========================================================
-       SHINYLIVE / WEBR APP
-       DESKTOP ONLY
-       ========================================================= -->
 
   <script type="module">
 
-    const isMobile =
-      document.documentElement.classList.contains(
-        "blackbox-mobile"
-      );
+    import {
+      runExportedApp
+    } from "./shinylive/shinylive.js";
 
 
-    if (!isMobile) {
+    runExportedApp({
 
-      import(
-        "./shinylive/shinylive.js"
-      ).then(
-        ({ runExportedApp }) => {
+      id: "root",
 
-          runExportedApp({
+      appEngine: "r",
 
-            id: "root",
+      relPath: "",
 
-            appEngine: "r",
-
-            relPath: "",
-
-          });
-
-        }
-      );
-
-    }
+    });
 
   </script>
 
@@ -132,7 +62,7 @@
 
 
   <!-- =========================================================
-       BLACK BOX, i CSS
+       BLACK BOX, i SPLASH CSS
        ========================================================= -->
 
   <style>
@@ -164,22 +94,24 @@
 
     #root {
 
-      height: 100vh;
-
       width: 100vw;
+
+      height: 100vh;
 
     }
 
 
     /* ---------------------------------------------------------
-       SPLASH SCREEN
+       BLACK BOX, i SPLASH
        --------------------------------------------------------- */
 
     #blackbox-splash {
 
       position: fixed;
 
-      inset: 0;
+      top: 0;
+
+      left: 0;
 
       width: 100vw;
 
@@ -189,16 +121,6 @@
 
       z-index: 999999;
 
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      justify-content: center;
-
-      box-sizing: border-box;
-
       opacity: 1;
 
       visibility: visible;
@@ -207,8 +129,14 @@
         opacity 0.6s ease,
         visibility 0.6s ease;
 
+      pointer-events: none;
+
     }
 
+
+    /* ---------------------------------------------------------
+       SPLASH FINISHED
+       --------------------------------------------------------- */
 
     #blackbox-splash.finished {
 
@@ -216,25 +144,22 @@
 
       visibility: hidden;
 
-      pointer-events: none;
-
     }
 
 
     /* ---------------------------------------------------------
-       SPLASH CONTENT POSITION
+       TOP-ALIGNED LOADING CONTENT
        --------------------------------------------------------- */
 
-    /*
-     * This is the ONLY positioning change.
-     *
-     * The splash itself remains a normal full-screen
-     * overlay, but the contents are shifted upward.
-     *
-     * This should have no effect on WebR initialization.
-     */
+    #blackbox-loading {
 
-    .blackbox-splash-content {
+      position: absolute;
+
+      top: 30px;
+
+      left: 0;
+
+      width: 100%;
 
       display: flex;
 
@@ -242,9 +167,7 @@
 
       align-items: center;
 
-      width: 100%;
-
-      transform: translateY(-25vh);
+      box-sizing: border-box;
 
     }
 
@@ -252,15 +175,6 @@
     /* ---------------------------------------------------------
        TITLE
        --------------------------------------------------------- */
-
-    .blackbox-logo {
-
-      text-align: center;
-
-      margin-bottom: 34px;
-
-    }
-
 
     .blackbox-title {
 
@@ -283,8 +197,14 @@
 
       color: #111111;
 
+      text-align: center;
+
     }
 
+
+    /* ---------------------------------------------------------
+       TAGLINE
+       --------------------------------------------------------- */
 
     .blackbox-tagline {
 
@@ -307,6 +227,8 @@
 
       color: #777777;
 
+      text-align: center;
+
     }
 
 
@@ -320,18 +242,20 @@
 
       height: 34px;
 
+      margin-top: 28px;
+
+      margin-bottom: 18px;
+
       border-radius: 50%;
 
       border: 3px solid #e8e8e8;
 
       border-top-color: #222222;
 
+      box-sizing: border-box;
+
       animation:
         blackbox-spin 0.9s linear infinite;
-
-      margin-bottom: 28px;
-
-      box-sizing: border-box;
 
     }
 
@@ -354,7 +278,7 @@
 
 
     /* ---------------------------------------------------------
-       PROGRESS BAR
+       PROGRESS BAR CONTAINER
        --------------------------------------------------------- */
 
     .blackbox-progress-container {
@@ -367,6 +291,10 @@
 
     }
 
+
+    /* ---------------------------------------------------------
+       PROGRESS TRACK
+       --------------------------------------------------------- */
 
     .blackbox-progress-track {
 
@@ -383,6 +311,10 @@
     }
 
 
+    /* ---------------------------------------------------------
+       PROGRESS FILL
+       --------------------------------------------------------- */
+
     .blackbox-progress-fill {
 
       width: 0%;
@@ -395,6 +327,10 @@
 
     }
 
+
+    /* ---------------------------------------------------------
+       PERCENTAGE
+       --------------------------------------------------------- */
 
     .blackbox-progress-text {
 
@@ -420,6 +356,10 @@
     }
 
 
+    /* ---------------------------------------------------------
+       LOADING TEXT
+       --------------------------------------------------------- */
+
     .blackbox-loading-text {
 
       margin-top: 7px;
@@ -443,175 +383,24 @@
 
 
     /* ---------------------------------------------------------
-       MOBILE STOP SCREEN
-       --------------------------------------------------------- */
-
-    #blackbox-mobile-message {
-
-      display: none;
-
-    }
-
-
-    .blackbox-mobile #blackbox-splash {
-
-      display: none;
-
-    }
-
-
-    .blackbox-mobile #root {
-
-      display: none;
-
-    }
-
-
-    .blackbox-mobile #blackbox-mobile-message {
-
-      position: fixed;
-
-      inset: 0;
-
-      width: 100vw;
-
-      height: 100vh;
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      justify-content: center;
-
-      box-sizing: border-box;
-
-      padding: 32px;
-
-      background: #ffffff;
-
-      text-align: center;
-
-      z-index: 999999;
-
-    }
-
-
-    .blackbox-mobile-title {
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      font-size: 34px;
-
-      font-weight: 600;
-
-      letter-spacing: -1.2px;
-
-      color: #111111;
-
-    }
-
-
-    .blackbox-mobile-tagline {
-
-      margin-top: 10px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      font-size: 13px;
-
-      letter-spacing: 2.5px;
-
-      color: #777777;
-
-    }
-
-
-    .blackbox-mobile-divider {
-
-      width: 50px;
-
-      height: 1px;
-
-      background: #dddddd;
-
-      margin: 34px 0 28px 0;
-
-    }
-
-
-    .blackbox-mobile-message-text {
-
-      max-width: 360px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      font-size: 16px;
-
-      line-height: 1.6;
-
-      color: #444444;
-
-    }
-
-
-    .blackbox-mobile-small {
-
-      margin-top: 16px;
-
-      max-width: 340px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      font-size: 13px;
-
-      line-height: 1.5;
-
-      color: #999999;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       DESKTOP ONLY
+       SMALL SCREENS
        --------------------------------------------------------- */
 
     @media (max-width: 500px) {
+
+      #blackbox-loading {
+
+        top: 25px;
+
+      }
+
 
       .blackbox-title {
 
         font-size: 32px;
 
       }
+
 
       .blackbox-tagline {
 
@@ -620,6 +409,7 @@
         letter-spacing: 2.5px;
 
       }
+
 
       .blackbox-progress-container {
 
@@ -639,133 +429,35 @@
 
 
   <!-- =========================================================
-       ACTUAL SHINYLIVE / WEBR APP
-       DESKTOP ONLY
+       WEBR / SHINYLIVE APPLICATION
+       THIS IS THE ORIGINAL WEBR ROOT
        ========================================================= -->
 
   <div
-    id="root"
-    style="height: 100vh; width: 100vw">
+    style="height: 100vh; width: 100vw"
+    id="root">
   </div>
 
 
   <!-- =========================================================
        BLACK BOX, i SPLASH
-       DESKTOP ONLY
        ========================================================= -->
 
   <div id="blackbox-splash">
 
 
-    <!-- =======================================================
-         SPLASH CONTENT
-         ======================================================= -->
-
-    <div class="blackbox-splash-content">
+    <div id="blackbox-loading">
 
 
-      <div class="blackbox-logo">
+      <!-- =====================================================
+           TITLE
+           ===================================================== -->
 
-        <div class="blackbox-title">
+      <div class="blackbox-title">
 
-          Black Box, i
-
-        </div>
-
-
-        <div class="blackbox-tagline">
-
-          Simple | Investing
-
-        </div>
+        Black Box, i
 
       </div>
 
 
-      <div class="blackbox-spinner"></div>
-
-
-      <div class="blackbox-progress-container">
-
-
-        <div class="blackbox-progress-track">
-
-          <div
-            id="blackbox-progress-fill"
-            class="blackbox-progress-fill">
-          </div>
-
-        </div>
-
-
-        <div
-          id="blackbox-progress-text"
-          class="blackbox-progress-text">
-
-          0%
-
-        </div>
-
-
-        <div class="blackbox-loading-text">
-
-          Loading Black Box, i...
-
-        </div>
-
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =========================================================
-       MOBILE STOP MESSAGE
-       WEBR NEVER INITIALIZES ON MOBILE
-       ========================================================= -->
-
-  <div id="blackbox-mobile-message">
-
-
-    <div class="blackbox-mobile-title">
-
-      Black Box, i
-
-    </div>
-
-
-    <div class="blackbox-mobile-tagline">
-
-      Simple | Investing
-
-    </div>
-
-
-    <div class="blackbox-mobile-divider"></div>
-
-
-    <div class="blackbox-mobile-message-text">
-
-      Black Box, i is currently built
-      for desktop computers.
-
-    </div>
-
-
-    <div class="blackbox-mobile-small">
-
-      Please visit Black Box, i on
-      Windows 11 or macOS.
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =========================================================
-
+      <!-- ==========
