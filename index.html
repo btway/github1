@@ -1,4 +1,4 @@
-
+\```html
 <!doctype html>
 <html lang="en">
 
@@ -14,14 +14,11 @@
   <title>Black Box, i</title>
 
 
-  <!-- =========================================================
-       ORIGINAL WEBR / SHINYLIVE
-       ========================================================= -->
-
   <script
     src="./shinylive/load-shinylive-sw.js"
     type="module">
   </script>
+
 
   <script type="module">
 
@@ -29,20 +26,23 @@
       from "./shinylive/shinylive.js";
 
     runExportedApp({
+
       id: "root",
+
       appEngine: "r",
+
       relPath: "",
+
     });
 
   </script>
 
 
-  <!-- ORIGINAL SHINYLIVE CSS -->
-
   <link
     rel="stylesheet"
     href="./shinylive/style-resets.css"
   />
+
 
   <link
     rel="stylesheet"
@@ -50,48 +50,35 @@
   />
 
 
-  <!-- =========================================================
-       BLACK BOX, i SPLASH
-       ========================================================= -->
-
   <style>
 
-    html,
-    body {
-
-      margin: 0;
-      padding: 0;
-
-      width: 100%;
-      height: 100%;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       SPLASH
-       --------------------------------------------------------- */
+    /*
+       NOTHING HERE CHANGES WEBR.
+       THIS IS ONLY THE VISUAL SPLASH.
+    */
 
     #blackbox-splash {
 
       position: fixed;
 
       top: 0;
+
       left: 0;
 
-      width: 100%;
-      height: 100%;
+      width: 100vw;
 
-      background: #ffffff;
+      height: 100vh;
+
+      background: white;
 
       z-index: 999999;
 
+      text-align: center;
+
+      font-family: Arial, sans-serif;
+
     }
 
-
-    /* ---------------------------------------------------------
-       TOP CONTENT
-       --------------------------------------------------------- */
 
     #blackbox-content {
 
@@ -100,21 +87,11 @@
       top: 30px;
 
       left: 0;
+
       right: 0;
-
-      text-align: center;
-
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
 
     }
 
-
-    /* ---------------------------------------------------------
-       TITLE
-       --------------------------------------------------------- */
 
     #blackbox-title {
 
@@ -122,14 +99,10 @@
 
       font-weight: 600;
 
-      color: #111111;
+      color: #111;
 
     }
 
-
-    /* ---------------------------------------------------------
-       TAGLINE
-       --------------------------------------------------------- */
 
     #blackbox-tagline {
 
@@ -139,14 +112,10 @@
 
       letter-spacing: 3px;
 
-      color: #777777;
+      color: #777;
 
     }
 
-
-    /* ---------------------------------------------------------
-       SPINNER
-       --------------------------------------------------------- */
 
     #blackbox-spinner {
 
@@ -154,21 +123,20 @@
 
       height: 32px;
 
-      margin: 28px auto 18px auto;
+      margin: 28px auto;
 
-      border: 4px solid #eeeeee;
+      border: 4px solid #eee;
 
-      border-top: 4px solid #222222;
+      border-top: 4px solid #222;
 
       border-radius: 50%;
 
-      animation:
-        blackbox-spin 1s linear infinite;
+      animation: spin 1s linear infinite;
 
     }
 
 
-    @keyframes blackbox-spin {
+    @keyframes spin {
 
       from {
         transform: rotate(0deg);
@@ -181,7 +149,64 @@
     }
 
 
-    /* ---------------------------------------------------------
-       PROGRESS TRACK
-       --------------------------------
+    #blackbox-progress {
 
+      width: 320px;
+
+      height: 6px;
+
+      margin: 0 auto;
+
+      background: #eee;
+
+      border-radius: 10px;
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       ORIGINAL WEBR ROOT
+       ===================================================== -->
+
+  <div
+    style="height: 100vh; width: 100vw"
+    id="root">
+  </div>
+
+
+  <!-- =====================================================
+       STATIC SPLASH
+       ===================================================== -->
+
+  <div id="blackbox-splash">
+
+    <div id="blackbox-content">
+
+      <div id="blackbox-title">
+        Black Box, i
+      </div>
+
+      <div id="blackbox-tagline">
+        Simple | Investing
+      </div>
+
+      <div id="blackbox-spinner"></div>
+
+      <div id="blackbox-progress"></div>
+
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>
+```
