@@ -15,15 +15,13 @@
 
 
   <!-- =========================================================
-       ORIGINAL SHINYLIVE / WEBR
-       DO NOT CHANGE
+       ORIGINAL WEBR / SHINYLIVE
        ========================================================= -->
 
   <script
     src="./shinylive/load-shinylive-sw.js"
     type="module">
   </script>
-
 
   <script type="module">
 
@@ -39,9 +37,7 @@
   </script>
 
 
-  <!-- =========================================================
-       ORIGINAL SHINYLIVE CSS
-       ========================================================= -->
+  <!-- ORIGINAL SHINYLIVE CSS -->
 
   <link
     rel="stylesheet"
@@ -62,10 +58,13 @@
 
     html,
     body {
+
       margin: 0;
       padding: 0;
+
       width: 100%;
       height: 100%;
+
     }
 
 
@@ -183,103 +182,6 @@
 
 
     /* ---------------------------------------------------------
-       PROGRESS BAR
-       --------------------------------------------------------- */
+       PROGRESS TRACK
+       --------------------------------
 
-    #blackbox-progress {
-
-      width: 320px;
-
-      max-width: 70%;
-
-      height: 6px;
-
-      margin: 0 auto;
-
-      background: #eeeeee;
-
-      border-radius: 10px;
-
-      overflow: hidden;
-
-    }
-
-
-    #blackbox-progress-bar {
-
-      width: 0%;
-
-      height: 100%;
-
-      background: #222222;
-
-      border-radius: 10px;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       PERCENTAGE
-       --------------------------------------------------------- */
-
-    #blackbox-percent {
-
-      margin-top: 10px;
-
-      font-size: 13px;
-
-      color: #777777;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       MESSAGE
-       --------------------------------------------------------- */
-
-    #blackbox-message {
-
-      margin-top: 6px;
-
-      font-size: 11px;
-
-      color: #aaaaaa;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       FINISHED
-       --------------------------------------------------------- */
-
-    #blackbox-splash.done {
-
-      opacity: 0;
-
-      visibility: hidden;
-
-      transition:
-        opacity 0.5s ease;
-
-      pointer-events: none;
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-
-  <!-- =========================================================
-       BLACK BOX, i SPLASH
-       ========================================================= -->
-
-  <div id="blackbox-splash">
-
-    <div id="blackbox-content">
-
-      <div id="blackbox-title">
-        Black Box, i
