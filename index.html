@@ -1,4 +1,4 @@
-\```html
+
 <!doctype html>
 <html lang="en">
 
@@ -53,8 +53,9 @@
   <style>
 
     /*
-       NOTHING HERE CHANGES WEBR.
-       THIS IS ONLY THE VISUAL SPLASH.
+       =========================================================
+       SPLASH
+       =========================================================
     */
 
     #blackbox-splash {
@@ -77,8 +78,22 @@
 
       font-family: Arial, sans-serif;
 
+      /*
+         Keep splash visible for 40 seconds,
+         then fade it away.
+      */
+
+      animation:
+        blackbox-hide 0.6s ease 40s forwards;
+
     }
 
+
+    /*
+       =========================================================
+       TOP CONTENT
+       =========================================================
+    */
 
     #blackbox-content {
 
@@ -93,6 +108,12 @@
     }
 
 
+    /*
+       =========================================================
+       TITLE
+       =========================================================
+    */
+
     #blackbox-title {
 
       font-size: 38px;
@@ -103,6 +124,12 @@
 
     }
 
+
+    /*
+       =========================================================
+       TAGLINE
+       =========================================================
+    */
 
     #blackbox-tagline {
 
@@ -116,6 +143,12 @@
 
     }
 
+
+    /*
+       =========================================================
+       SPINNER
+       =========================================================
+    */
 
     #blackbox-spinner {
 
@@ -131,27 +164,40 @@
 
       border-radius: 50%;
 
-      animation: spin 1s linear infinite;
+      animation:
+        blackbox-spin 1s linear infinite;
 
     }
 
 
-    @keyframes spin {
+    @keyframes blackbox-spin {
 
       from {
+
         transform: rotate(0deg);
+
       }
 
       to {
+
         transform: rotate(360deg);
+
       }
 
     }
 
+
+    /*
+       =========================================================
+       PROGRESS TRACK
+       =========================================================
+    */
 
     #blackbox-progress {
 
       width: 320px;
+
+      max-width: 70vw;
 
       height: 6px;
 
@@ -160,6 +206,76 @@
       background: #eee;
 
       border-radius: 10px;
+
+      overflow: hidden;
+
+    }
+
+
+    /*
+       =========================================================
+       PROGRESS BAR
+       =========================================================
+    */
+
+    #blackbox-progress-bar {
+
+      width: 0%;
+
+      height: 100%;
+
+      background: #222;
+
+      border-radius: 10px;
+
+      animation:
+        blackbox-progress 40s linear forwards;
+
+    }
+
+
+    @keyframes blackbox-progress {
+
+      from {
+
+        width: 0%;
+
+      }
+
+      to {
+
+        width: 100%;
+
+      }
+
+    }
+
+
+    /*
+       =========================================================
+       HIDE SPLASH
+       =========================================================
+    */
+
+    @keyframes blackbox-hide {
+
+      from {
+
+        opacity: 1;
+
+        visibility: visible;
+
+      }
+
+      to {
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        pointer-events: none;
+
+      }
 
     }
 
@@ -182,24 +298,37 @@
 
 
   <!-- =====================================================
-       STATIC SPLASH
+       BLACK BOX, i SPLASH
        ===================================================== -->
 
   <div id="blackbox-splash">
 
     <div id="blackbox-content">
 
+
       <div id="blackbox-title">
+
         Black Box, i
+
       </div>
 
+
       <div id="blackbox-tagline">
+
         Simple | Investing
+
       </div>
+
 
       <div id="blackbox-spinner"></div>
 
-      <div id="blackbox-progress"></div>
+
+      <div id="blackbox-progress">
+
+        <div id="blackbox-progress-bar"></div>
+
+      </div>
+
 
     </div>
 
@@ -209,4 +338,3 @@
 </body>
 
 </html>
-```
