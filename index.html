@@ -4,14 +4,52 @@
 
 <head>
 
+<!-- =====================================================
+     SAFARI BLOCK
+     ===================================================== -->
+
+<script>
+
+  (function () {
+
+    var ua = navigator.userAgent;
+
+    var isSafari =
+      /Safari/i.test(ua) &&
+      !/Chrome/i.test(ua) &&
+      !/Chromium/i.test(ua) &&
+      !/CriOS/i.test(ua) &&
+      !/Edg/i.test(ua) &&
+      !/OPR/i.test(ua) &&
+      !/FxiOS/i.test(ua);
+
+    if (isSafari) {
+      document.documentElement.classList.add("safari-blocked");
+    }
+
+  })();
+
+</script>
+
+
+<!-- =====================================================
+     GOOGLE ANALYTICS 4
+     ===================================================== -->
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0C9703M4J"></script>
 <script>
+
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag(){
+    dataLayer.push(arguments);
+  }
+
   gtag('js', new Date());
 
   gtag('config', 'G-T0C9703M4J');
+
 </script>
 
 
@@ -25,6 +63,11 @@
   <title>Black Box, i</title>
 
 
+  <!-- =====================================================
+       WEBR / SHINYLIVE
+       ONLY LOADS IF NOT SAFARI
+       ===================================================== -->
+
   <script
     src="./shinylive/load-shinylive-sw.js"
     type="module">
@@ -33,18 +76,28 @@
 
   <script type="module">
 
-    import { runExportedApp }
-      from "./shinylive/shinylive.js";
+    if (
+      !document.documentElement.classList.contains(
+        "safari-blocked"
+      )
+    ) {
 
-    runExportedApp({
+      import("./shinylive/shinylive.js")
+        .then(function (module) {
 
-      id: "root",
+          module.runExportedApp({
 
-      appEngine: "r",
+            id: "root",
 
-      relPath: "",
+            appEngine: "r",
 
-    });
+            relPath: "",
+
+          });
+
+        });
+
+    }
 
   </script>
 
@@ -62,6 +115,81 @@
 
 
   <style>
+
+    /*
+       =========================================================
+       SAFARI BLOCK MESSAGE
+       =========================================================
+    */
+
+    #safari-block {
+
+      display: none;
+
+      position: fixed;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100vw;
+
+      height: 100vh;
+
+      background: white;
+
+      z-index: 9999999;
+
+      text-align: center;
+
+      font-family: Arial, sans-serif;
+
+    }
+
+
+    .safari-blocked #safari-block {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+    }
+
+
+    #safari-block-content {
+
+      max-width: 500px;
+
+      padding: 40px;
+
+    }
+
+
+    #safari-block-title {
+
+      font-size: 36px;
+
+      font-weight: 600;
+
+      color: #111;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    #safari-block-message {
+
+      font-size: 16px;
+
+      line-height: 1.6;
+
+      color: #555;
+
+    }
+
 
     /*
        =========================================================
@@ -283,146 +411,4 @@
     */
 
     @keyframes blackbox-hide {
-
-      from {
-
-        opacity: 1;
-
-        visibility: visible;
-
-      }
-
-      to {
-
-        opacity: 0;
-
-        visibility: hidden;
-
-        pointer-events: none;
-
-      }
-
-    }
-
-  </style>
-
-</head>
-
-
-<body>
-
-
-  <!-- =====================================================
-       ORIGINAL WEBR ROOT
-       ===================================================== -->
-
-  <div
-    style="height: 100vh; width: 100vw"
-    id="root">
-  </div>
-
-
-  <!-- =====================================================
-       BLACK BOX, i SPLASH
-       ===================================================== -->
-
-  <div id="blackbox-splash">
-
-    <div id="blackbox-content">
-
-
-      <div id="blackbox-title">
-
-        Black Box, i
-
-      </div>
-
-
-      <div id="blackbox-tagline">
-
-        Simple | Investing
-
-      </div>
-
-
-      <div id="blackbox-spinner"></div>
-
-
-      <div id="blackbox-progress">
-
-        <div id="blackbox-progress-bar"></div>
-
-      </div>
-
-
-      <div id="blackbox-percent">
-
-        0%
-
-      </div>
-
-
-    </div>
-
-  </div>
-
-
-  <!-- =====================================================
-       PERCENTAGE DISPLAY ONLY
-       ===================================================== -->
-
-  <script>
-
-    (function () {
-
-      var start =
-        new Date().getTime();
-
-      var duration =
-        40000;
-
-
-      var percent =
-        document.getElementById(
-          "blackbox-percent"
-        );
-
-
-      var timer =
-        setInterval(function () {
-
-          var elapsed =
-            new Date().getTime() - start;
-
-
-          var value =
-            Math.floor(
-              (elapsed / duration) * 100
-            );
-
-
-          if (value >= 100) {
-
-            value = 100;
-
-            clearInterval(timer);
-
-          }
-
-
-          percent.textContent =
-            value + "%";
-
-
-        }, 400);
-
-
-    })();
-
-  </script>
-
-
-</body>
-
-</html>
 
