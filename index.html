@@ -78,11 +78,6 @@
 
       font-family: Arial, sans-serif;
 
-      /*
-         Keep splash visible for 40 seconds,
-         then fade it away.
-      */
-
       animation:
         blackbox-hide 0.6s ease 40s forwards;
 
@@ -253,6 +248,25 @@
 
     /*
        =========================================================
+       PERCENTAGE
+       =========================================================
+    */
+
+    #blackbox-percent {
+
+      margin-top: 10px;
+
+      font-size: 13px;
+
+      color: #777;
+
+      letter-spacing: 0.5px;
+
+    }
+
+
+    /*
+       =========================================================
        HIDE SPLASH
        =========================================================
     */
@@ -330,11 +344,74 @@
       </div>
 
 
+      <div id="blackbox-percent">
+
+        0%
+
+      </div>
+
+
     </div>
 
   </div>
 
 
+  <!-- =====================================================
+       PERCENTAGE DISPLAY ONLY
+       ===================================================== -->
+
+  <script>
+
+    (function () {
+
+      var start =
+        new Date().getTime();
+
+      var duration =
+        40000;
+
+
+      var percent =
+        document.getElementById(
+          "blackbox-percent"
+        );
+
+
+      var timer =
+        setInterval(function () {
+
+          var elapsed =
+            new Date().getTime() - start;
+
+
+          var value =
+            Math.floor(
+              (elapsed / duration) * 100
+            );
+
+
+          if (value >= 100) {
+
+            value = 100;
+
+            clearInterval(timer);
+
+          }
+
+
+          percent.textContent =
+            value + "%";
+
+
+        }, 400);
+
+
+    })();
+
+  </script>
+
+
 </body>
 
 </html>
+
