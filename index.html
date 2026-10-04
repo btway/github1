@@ -14,12 +14,16 @@
   <title>Black Box, i</title>
 
 
-  <!-- ORIGINAL SHINYLIVE / WEBR -->
+  <!-- =========================================================
+       ORIGINAL SHINYLIVE / WEBR
+       DO NOT CHANGE
+       ========================================================= -->
 
   <script
     src="./shinylive/load-shinylive-sw.js"
     type="module">
   </script>
+
 
   <script type="module">
 
@@ -35,7 +39,9 @@
   </script>
 
 
-  <!-- ORIGINAL SHINYLIVE CSS -->
+  <!-- =========================================================
+       ORIGINAL SHINYLIVE CSS
+       ========================================================= -->
 
   <link
     rel="stylesheet"
@@ -48,53 +54,123 @@
   />
 
 
-  <!-- VERY SIMPLE SPLASH CSS -->
+  <!-- =========================================================
+       BLACK BOX, i SPLASH
+       ========================================================= -->
 
   <style>
 
-    #blackbox-splash {
-      position: fixed;
-      top: 0;
-      left: 0;
+    html,
+    body {
+      margin: 0;
+      padding: 0;
       width: 100%;
       height: 100%;
-      background: white;
-      z-index: 999999;
     }
+
+
+    /* ---------------------------------------------------------
+       SPLASH
+       --------------------------------------------------------- */
+
+    #blackbox-splash {
+
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: #ffffff;
+
+      z-index: 999999;
+
+    }
+
+
+    /* ---------------------------------------------------------
+       TOP CONTENT
+       --------------------------------------------------------- */
 
     #blackbox-content {
+
       position: absolute;
+
       top: 30px;
+
       left: 0;
       right: 0;
+
       text-align: center;
-      font-family: Arial, sans-serif;
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     }
+
+
+    /* ---------------------------------------------------------
+       TITLE
+       --------------------------------------------------------- */
 
     #blackbox-title {
+
       font-size: 38px;
+
       font-weight: 600;
-      color: #111;
+
+      color: #111111;
+
     }
+
+
+    /* ---------------------------------------------------------
+       TAGLINE
+       --------------------------------------------------------- */
 
     #blackbox-tagline {
+
       margin-top: 8px;
+
       font-size: 14px;
+
       letter-spacing: 3px;
-      color: #777;
+
+      color: #777777;
+
     }
+
+
+    /* ---------------------------------------------------------
+       SPINNER
+       --------------------------------------------------------- */
 
     #blackbox-spinner {
+
       width: 32px;
+
       height: 32px;
+
       margin: 28px auto 18px auto;
-      border: 4px solid #eee;
-      border-top: 4px solid #222;
+
+      border: 4px solid #eeeeee;
+
+      border-top: 4px solid #222222;
+
       border-radius: 50%;
-      animation: blackbox-spin 1s linear infinite;
+
+      animation:
+        blackbox-spin 1s linear infinite;
+
     }
 
+
     @keyframes blackbox-spin {
+
       from {
         transform: rotate(0deg);
       }
@@ -102,40 +178,91 @@
       to {
         transform: rotate(360deg);
       }
+
     }
+
+
+    /* ---------------------------------------------------------
+       PROGRESS BAR
+       --------------------------------------------------------- */
 
     #blackbox-progress {
+
       width: 320px;
+
       max-width: 70%;
+
       height: 6px;
+
       margin: 0 auto;
-      background: #eee;
+
+      background: #eeeeee;
+
       border-radius: 10px;
+
       overflow: hidden;
+
     }
+
 
     #blackbox-progress-bar {
+
       width: 0%;
+
       height: 100%;
-      background: #222;
+
+      background: #222222;
+
+      border-radius: 10px;
+
     }
+
+
+    /* ---------------------------------------------------------
+       PERCENTAGE
+       --------------------------------------------------------- */
 
     #blackbox-percent {
+
       margin-top: 10px;
+
       font-size: 13px;
-      color: #777;
+
+      color: #777777;
+
     }
+
+
+    /* ---------------------------------------------------------
+       MESSAGE
+       --------------------------------------------------------- */
 
     #blackbox-message {
+
       margin-top: 6px;
+
       font-size: 11px;
-      color: #aaa;
+
+      color: #aaaaaa;
+
     }
 
+
+    /* ---------------------------------------------------------
+       FINISHED
+       --------------------------------------------------------- */
+
     #blackbox-splash.done {
+
       opacity: 0;
+
       visibility: hidden;
-      transition: opacity 0.5s ease;
+
+      transition:
+        opacity 0.5s ease;
+
+      pointer-events: none;
+
     }
 
   </style>
@@ -146,7 +273,9 @@
 <body>
 
 
-  <!-- SPLASH -->
+  <!-- =========================================================
+       BLACK BOX, i SPLASH
+       ========================================================= -->
 
   <div id="blackbox-splash">
 
@@ -154,78 +283,3 @@
 
       <div id="blackbox-title">
         Black Box, i
-      </div>
-
-      <div id="blackbox-tagline">
-        Simple | Investing
-      </div>
-
-      <div id="blackbox-spinner"></div>
-
-      <div id="blackbox-progress">
-
-        <div id="blackbox-progress-bar"></div>
-
-      </div>
-
-      <div id="blackbox-percent">
-        0%
-      </div>
-
-      <div id="blackbox-message">
-        Loading Black Box, i...
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ORIGINAL WEBR ROOT -->
-
-  <div
-    style="height: 100vh; width: 100vw"
-    id="root">
-  </div>
-
-
-  <!-- 40 SECOND VISUAL TIMER -->
-
-  <script>
-
-    const splash =
-      document.getElementById(
-        "blackbox-splash"
-      );
-
-    const bar =
-      document.getElementById(
-        "blackbox-progress-bar"
-      );
-
-    const percent =
-      document.getElementById(
-        "blackbox-percent"
-      );
-
-
-    const start =
-      performance.now();
-
-    const duration =
-      40000;
-
-
-    function update(now) {
-
-      const elapsed =
-        now - start;
-
-      let progress =
-        (elapsed / duration) * 100;
-
-
-      if (progress > 100) {
-        progress = 100;
-      }
-
