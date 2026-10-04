@@ -14,46 +14,33 @@
   <title>Black Box, i</title>
 
 
-  <!-- =========================================================
-       SHINYLIVE / WEBR
-       ORIGINAL BUILT-IN WEBR CODE
-       ========================================================= -->
+  <!-- ORIGINAL SHINYLIVE / WEBR -->
 
   <script
     src="./shinylive/load-shinylive-sw.js"
     type="module">
   </script>
 
-
   <script type="module">
 
-    import {
-      runExportedApp
-    } from "./shinylive/shinylive.js";
-
+    import { runExportedApp }
+      from "./shinylive/shinylive.js";
 
     runExportedApp({
-
       id: "root",
-
       appEngine: "r",
-
       relPath: "",
-
     });
 
   </script>
 
 
-  <!-- =========================================================
-       SHINYLIVE CSS
-       ========================================================= -->
+  <!-- ORIGINAL SHINYLIVE CSS -->
 
   <link
     rel="stylesheet"
     href="./shinylive/style-resets.css"
   />
-
 
   <link
     rel="stylesheet"
@@ -61,364 +48,95 @@
   />
 
 
-  <!-- =========================================================
-       BLACK BOX, i SPLASH CSS
-       ========================================================= -->
+  <!-- VERY SIMPLE SPLASH CSS -->
 
   <style>
 
-
-    /* ---------------------------------------------------------
-       BASE
-       --------------------------------------------------------- */
-
-    html,
-    body {
-
-      margin: 0;
-
-      padding: 0;
-
-      width: 100%;
-
-      height: 100%;
-
-      overflow: hidden;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       WEBR ROOT
-       --------------------------------------------------------- */
-
-    #root {
-
-      width: 100vw;
-
-      height: 100vh;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       BLACK BOX, i SPLASH
-       --------------------------------------------------------- */
-
     #blackbox-splash {
-
       position: fixed;
-
       top: 0;
-
       left: 0;
-
-      width: 100vw;
-
-      height: 100vh;
-
-      background: #ffffff;
-
-      z-index: 999999;
-
-      opacity: 1;
-
-      visibility: visible;
-
-      transition:
-        opacity 0.6s ease,
-        visibility 0.6s ease;
-
-      pointer-events: none;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       SPLASH FINISHED
-       --------------------------------------------------------- */
-
-    #blackbox-splash.finished {
-
-      opacity: 0;
-
-      visibility: hidden;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       TOP-ALIGNED LOADING CONTENT
-       --------------------------------------------------------- */
-
-    #blackbox-loading {
-
-      position: absolute;
-
-      top: 30px;
-
-      left: 0;
-
       width: 100%;
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      box-sizing: border-box;
-
+      height: 100%;
+      background: white;
+      z-index: 999999;
     }
 
+    #blackbox-content {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
 
-    /* ---------------------------------------------------------
-       TITLE
-       --------------------------------------------------------- */
-
-    .blackbox-title {
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
+    #blackbox-title {
       font-size: 38px;
-
       font-weight: 600;
-
-      letter-spacing: -1.5px;
-
-      line-height: 1;
-
-      color: #111111;
-
-      text-align: center;
-
+      color: #111;
     }
 
-
-    /* ---------------------------------------------------------
-       TAGLINE
-       --------------------------------------------------------- */
-
-    .blackbox-tagline {
-
-      margin-top: 10px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
+    #blackbox-tagline {
+      margin-top: 8px;
       font-size: 14px;
-
-      font-weight: 400;
-
       letter-spacing: 3px;
-
-      color: #777777;
-
-      text-align: center;
-
+      color: #777;
     }
 
-
-    /* ---------------------------------------------------------
-       SPINNER
-       --------------------------------------------------------- */
-
-    .blackbox-spinner {
-
-      width: 34px;
-
-      height: 34px;
-
-      margin-top: 28px;
-
-      margin-bottom: 18px;
-
+    #blackbox-spinner {
+      width: 32px;
+      height: 32px;
+      margin: 28px auto 18px auto;
+      border: 4px solid #eee;
+      border-top: 4px solid #222;
       border-radius: 50%;
-
-      border: 3px solid #e8e8e8;
-
-      border-top-color: #222222;
-
-      box-sizing: border-box;
-
-      animation:
-        blackbox-spin 0.9s linear infinite;
-
+      animation: blackbox-spin 1s linear infinite;
     }
-
 
     @keyframes blackbox-spin {
-
       from {
-
         transform: rotate(0deg);
-
       }
 
       to {
-
         transform: rotate(360deg);
-
       }
-
     }
 
-
-    /* ---------------------------------------------------------
-       PROGRESS BAR CONTAINER
-       --------------------------------------------------------- */
-
-    .blackbox-progress-container {
-
+    #blackbox-progress {
       width: 320px;
-
-      max-width: 70vw;
-
-      text-align: center;
-
-    }
-
-
-    /* ---------------------------------------------------------
-       PROGRESS TRACK
-       --------------------------------------------------------- */
-
-    .blackbox-progress-track {
-
-      width: 100%;
-
-      height: 5px;
-
-      background: #eeeeee;
-
+      max-width: 70%;
+      height: 6px;
+      margin: 0 auto;
+      background: #eee;
       border-radius: 10px;
-
       overflow: hidden;
-
     }
 
-
-    /* ---------------------------------------------------------
-       PROGRESS FILL
-       --------------------------------------------------------- */
-
-    .blackbox-progress-fill {
-
+    #blackbox-progress-bar {
       width: 0%;
-
       height: 100%;
-
-      background: #222222;
-
-      border-radius: 10px;
-
+      background: #222;
     }
 
-
-    /* ---------------------------------------------------------
-       PERCENTAGE
-       --------------------------------------------------------- */
-
-    .blackbox-progress-text {
-
-      margin-top: 12px;
-
-      min-height: 18px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
+    #blackbox-percent {
+      margin-top: 10px;
       font-size: 13px;
-
-      color: #777777;
-
-      letter-spacing: 0.5px;
-
+      color: #777;
     }
 
-
-    /* ---------------------------------------------------------
-       LOADING TEXT
-       --------------------------------------------------------- */
-
-    .blackbox-loading-text {
-
-      margin-top: 7px;
-
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-
+    #blackbox-message {
+      margin-top: 6px;
       font-size: 11px;
-
-      color: #aaaaaa;
-
-      letter-spacing: 0.4px;
-
+      color: #aaa;
     }
 
-
-    /* ---------------------------------------------------------
-       SMALL SCREENS
-       --------------------------------------------------------- */
-
-    @media (max-width: 500px) {
-
-      #blackbox-loading {
-
-        top: 25px;
-
-      }
-
-
-      .blackbox-title {
-
-        font-size: 32px;
-
-      }
-
-
-      .blackbox-tagline {
-
-        font-size: 13px;
-
-        letter-spacing: 2.5px;
-
-      }
-
-
-      .blackbox-progress-container {
-
-        width: 75vw;
-
-      }
-
+    #blackbox-splash.done {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease;
     }
-
 
   </style>
 
@@ -428,10 +146,42 @@
 <body>
 
 
-  <!-- =========================================================
-       WEBR / SHINYLIVE APPLICATION
-       THIS IS THE ORIGINAL WEBR ROOT
-       ========================================================= -->
+  <!-- SPLASH -->
+
+  <div id="blackbox-splash">
+
+    <div id="blackbox-content">
+
+      <div id="blackbox-title">
+        Black Box, i
+      </div>
+
+      <div id="blackbox-tagline">
+        Simple | Investing
+      </div>
+
+      <div id="blackbox-spinner"></div>
+
+      <div id="blackbox-progress">
+
+        <div id="blackbox-progress-bar"></div>
+
+      </div>
+
+      <div id="blackbox-percent">
+        0%
+      </div>
+
+      <div id="blackbox-message">
+        Loading Black Box, i...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ORIGINAL WEBR ROOT -->
 
   <div
     style="height: 100vh; width: 100vw"
@@ -439,25 +189,43 @@
   </div>
 
 
-  <!-- =========================================================
-       BLACK BOX, i SPLASH
-       ========================================================= -->
+  <!-- 40 SECOND VISUAL TIMER -->
 
-  <div id="blackbox-splash">
+  <script>
+
+    const splash =
+      document.getElementById(
+        "blackbox-splash"
+      );
+
+    const bar =
+      document.getElementById(
+        "blackbox-progress-bar"
+      );
+
+    const percent =
+      document.getElementById(
+        "blackbox-percent"
+      );
 
 
-    <div id="blackbox-loading">
+    const start =
+      performance.now();
+
+    const duration =
+      40000;
 
 
-      <!-- =====================================================
-           TITLE
-           ===================================================== -->
+    function update(now) {
 
-      <div class="blackbox-title">
+      const elapsed =
+        now - start;
 
-        Black Box, i
-
-      </div>
+      let progress =
+        (elapsed / duration) * 100;
 
 
-      <!-- ==========
+      if (progress > 100) {
+        progress = 100;
+      }
+
